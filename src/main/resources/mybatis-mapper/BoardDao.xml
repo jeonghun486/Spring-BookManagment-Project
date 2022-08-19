@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org/DTD Mapper 3.0/EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.hoon.bookmanagement.dao.BoardDao">
+<insert id="writeDao">
+		insert into book_board (bmnum, bmid, bmtitle, bmcontent, bmhit) values(bmboard_seq.nextval,#{param1},#{param2},#{param3}, 0)
+	</insert>
+	
+	<select id="listDao" resultType="com.hoon.bookmanagement.dto.BoardDto">
+		select * from book_board order by bmnum desc
+	</select>
+	
+	<select id="contentViewDao" resultType="com.hoon.bookmanagement.dto.BoardDto">
+		select * from book_board where bmnum = #{param1}
+	</select>
+	
+	<delete id="deleteDao">
+		delete from book_board where bmnum=#{param1}
+	</delete>
+	
+	<update id="qmodifyDao">
+		update book_board set bmid=#{param1}, bmtitle=#{param2}, bmcontent=#{param3} where bmnum=#{param4}
+	</update>
+	
+	</mapper>

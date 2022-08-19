@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org/DTD Mapper 3.0/EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.hoon.bookmanagement.dao.ManagerDao">
+
+	<!-- Manager SQL -->
+	<insert id="joinDao">
+		insert into book_manager(mngid, mngpw, mngname, mngaddr, mngtel, mngemail) values(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6})
+	</insert>
+	
+	<select id="checkIdDao" resultType="int">
+		select count(*) from book_manager where mngid=#{param1}
+	</select>
+	
+	<select id="checkIdPwDao" resultType="int">
+		select count(*) from book_manager where mngid=#{param1} and mngpw=#{param2}
+	</select>
+	
+	<select id="managerInfoDao" resultType="com.hoon.bookmanagement.dto.ManagerDto">
+		select * from book_manager where mngid=#{param1}
+	</select>
+	
+	<update id="infoModifyDao">
+		update book_manager set mngpw=#{param1}, mngname=#{param2}, mngaddr=#{param3}, mngtel=#{param4},mngemail=#{param5} where mngid=#{param6}
+	</update>
+	
+	<delete id="managerrDeleteDao">
+		delete from book_manager where mngid=#{param1} and mngpw=#{param2}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+span.index_title01{
+	font-size:40px;
+	color:#002266;
+	font-family: Arial;
+	font-weight:bold;
+}
+
+span.index_title02{
+	font-size:15px;
+	color:#648754;
+	font-family: Arial;
+	font-weight:bold;
+}
+
+span.index_skill01{
+	font-size:60px;
+	color:#ffffff;
+	font-family: Arial;
+	font-weight:bold;
+}
+
+span.index_skill02{
+	font-size:40px;
+	color:#071367;
+	font-family: Arial;
+	font-weight:bold;
+}
+span.login_title{
+	font-size:18px;
+	color:#090f86;
+	font-family: Arial;
+	font-weight:bold;
+}
+span.rent_title{
+	font-size:40px;
+	color:#ffffff;
+	font-family: Arial;
+	font-weight:bold;
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org/DTD Mapper 3.0/EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.hoon.bookmanagement.dao.BookDao">
+
+	<!-- Member SQL -->
+	<insert id="registerDao">
+		insert into book_list(isbn, title, author, publisher, pdate, image, price, description) values(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8})
+	</insert>
+	
+	<select id="checkBookDao" resultType="int">
+		select count(*) from book_list where isbn=#{param1}
+	</select>
+	
+	<select id="bookListDao" resultType="com.hoon.bookmanagement.dto.BookDto">
+		select * from book_list order by isbn desc
+	</select>
+	<select id="bookViewDao" resultType="com.hoon.bookmanagement.dto.BookDto">
+		select * from book_list where isbn = #{param1}
+	</select>
+	<delete id="bookDeleteDao">
+		delete from book_list where isbn=#{param1}
+	</delete>
+	<update id="bookUpdateDao">
+		update book_list set title=#{param1}, author=#{param2}, publisher=#{param3}, pdate=#{param4}, image=#{param5}, price=#{param6}, description=#{param7} where isbn=#{param8}
+	</update>
+</mapper>

@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+td.board_title{
+	
+	font-size: 20px;
+	font-weight: bold;
+	font-family: Arial;
+	color: #ffffff;
+	background-color: #4f4f4f;
+	text-align: center;
+	border-style: solid;
+	border-color: #ffffff;
+	border-width: 1px;
+}
+
+td.board_content{
+	
+	font-size: 20px;
+	font-weight: nomal;
+	font-family: malgun;
+	color: #000000;
+	background-color: #e5e5e5;
+	text-align: left;
+	border-style: solid;
+	border-color: #ffffff;
+	border-width: 1px;
+}
+
+td.book_title{
+	
+	font-size: 15px;
+	font-weight: bold;
+	font-family: Arial;
+	color: #ffffff;
+	background-color: #4f4f4f;
+	text-align: center;
+	border-style: solid;
+	border-color: #ffffff;
+	border-width: 1px;
+}
+td.book_content{
+	
+	font-size: 12px;
+	font-weight: nomal;
+	font-family: malgun;
+	color: #4e6cd8;
+	background-color: #e5e5e5;
+	text-align: left;
+	border-style: solid;
+	border-color: #ffffff;
+	border-width: 1px;
+}
+td.book_view{
+	
+	font-size: 15px;
+	font-weight: nomal;
+	font-family: malgun;
+	color: #4e6cd8;
+	background-color: #e5e5e5;
+	text-align: left;
+	border-style: solid;
+	border-color: #ffffff;
+	border-width: 1px;
+	text-decoration:underline;
+}
