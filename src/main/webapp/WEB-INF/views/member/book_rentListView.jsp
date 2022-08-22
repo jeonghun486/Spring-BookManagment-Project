@@ -29,7 +29,7 @@
 				<tr height="534">
 					<td bgcolor="#B3B3B3" align="center">
 						<table>
-							<form action="book_rent" method="post" name="book_form">
+							<form method="post" name="book_form">
 								<span></span>
 								<tr>
 											<td><span class="reg_text">ISBN  &nbsp;</span></td>
@@ -63,24 +63,8 @@
 								
 								<tr>
 									<td colspan="3" align="center">
-										<% 
-											String smemid = (String) session.getAttribute("smemid");
-											if(smemid != null){
-										%>
-										<c:choose>
-											<c:when test="${bookDto.amount == 1}">
-												<input class="btn_book" type="button" value="대여하기" onclick="location.href='book_rent?isbn=${bookDto.isbn}'">&nbsp;
-											</c:when>	
-											<c:otherwise>
-												
-											</c:otherwise>
-										</c:choose>
-											
-											
-										<%
-											}
-										%>
-											<input class="btn_book" type="button" value="뒤로가기" onclick="location.href='book_list'">&nbsp;
+										
+											<input class="btn_book" type="button" value="뒤로가기" onclick="location.href='book_rentList'">&nbsp;
 									</td>
 								</tr>
 							</form>

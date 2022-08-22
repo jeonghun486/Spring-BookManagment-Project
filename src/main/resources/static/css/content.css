@@ -2,7 +2,7 @@
 
 span.content_text{
 	
-	font-size: 20px;
+	font-size: 25px;
 	color: #ffffff;
 	font-family: malgun;
 	font-weight: bold;
@@ -172,6 +172,7 @@ input.btn_rentN{
 	color: #fa053d;
 	border-radius: 12px;
 }
+
 input.btn_book{
 	
 	border: 1px solid #d5d5d5;
@@ -216,4 +217,15 @@ input.btn_rent{
 input.btn_rent:hover{
 	background-color:#b4cef5;
 	color:#10459e;
+}
+input.btn_returnN{
+	
+	border: 3px solid #737373;
+	background-color: #e0e0e0;
+	width: 65px;
+	padding:5px;
+	font-family: Arial;
+	font-size: 12px;
+	color: #0000ff;
+	border-radius: 12px;
 }

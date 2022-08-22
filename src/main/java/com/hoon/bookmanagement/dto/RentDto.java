@@ -19,6 +19,7 @@ public class RentDto {
 	private String remail;
 	private String rdate;
 	private String rimage;
+	private String rid;
 	private int rent;
 	
 	public RentDto() {
@@ -27,7 +28,7 @@ public class RentDto {
 	}
 
 	public RentDto(String risbn, String rtitle, String rauthor, String rpublisher, String rprice, String rname,
-			String raddr, String rtel, String remail, String rdate, String rimage, int rent) {
+			String raddr, String rtel, String remail, String rdate, String rimage, int rent, String rid) {
 		super();
 		this.risbn = risbn;
 		this.rtitle = rtitle;
@@ -41,6 +42,7 @@ public class RentDto {
 		this.rdate = rdate;
 		this.rimage = rimage;
 		this.rent = rent;
+		this.rid = rid;
 		
 	}
 
@@ -138,6 +140,14 @@ public class RentDto {
 
 	public void setRent(int rent) {
 		this.rent = rent;
+	}
+
+	public String getRid() {
+		return rid;
+	}
+
+	public void setRid(String rid) {
+		this.rid = rid;
 	}
 	
 	

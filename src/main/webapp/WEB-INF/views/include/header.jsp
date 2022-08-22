@@ -23,7 +23,7 @@
 					if(sessionId != null){
 			%>
 			<td class="header_menu" width="10%">
-				<a href="rentList">대여목록</a>
+				<a href="book_rentList">대여목록</a>
 			</td>
 			<%
 					}

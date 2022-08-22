@@ -27,4 +27,8 @@
 	<update id="bookUpdateDao">
 		update book_list set title=#{param1}, author=#{param2}, publisher=#{param3}, pdate=#{param4}, image=#{param5}, price=#{param6}, description=#{param7} where isbn=#{param8}
 	</update>
+	<update id="listCheckDao">
+		update book_list set amount=#{param1} where isbn=#{param2}
+	</update>
+	
 </mapper>

@@ -21,6 +21,7 @@ import com.hoon.bookmanagement.dto.BoardDto;
 import com.hoon.bookmanagement.dto.BookDto;
 import com.hoon.bookmanagement.dto.ManagerDto;
 import com.hoon.bookmanagement.dto.MemberDto;
+import com.hoon.bookmanagement.dto.RentDto;
 
 @Controller
 public class BookController {
@@ -42,11 +43,6 @@ public class BookController {
 	@RequestMapping(value="/member/index")
 	public String index() {
 		return "member/index";
-	}
-	
-	@RequestMapping(value="/rentList")
-	public String rentList() {
-		return "member/rentList";
 	}
 	
 	@RequestMapping(value="/login")
@@ -250,7 +246,7 @@ public class BookController {
 		return "member/deleteOk";
 	}
 	
-	@RequestMapping(value="/member/board_write", method=RequestMethod.POST)
+	@RequestMapping(value="/board_write", method=RequestMethod.POST)
 	public String board_write(HttpServletRequest request, Model model) {
 		
 		String bmid = request.getParameter("bmid");
@@ -295,7 +291,7 @@ public class BookController {
 		return "redirect:board_list";
 	}
 	
-	@RequestMapping(value = "/member/board_modify")
+	@RequestMapping(value = "/board_modify")
 	public String  board_modify(HttpServletRequest request, Model model) {
 		
 		String bmid = request.getParameter("bmid");
@@ -372,15 +368,43 @@ public class BookController {
 		String by_date = request.getParameter("by_date");
 		String rdate = from_date + "~" + by_date;
 		String rimage = request.getParameter("image");
+		String rid = request.getParameter("memid");
+		int amount = Integer.parseInt(request.getParameter("amount"))-1;
 		
 		
-		RentDao dao = sqlSession.getMapper(RentDao.class);
 		
-		dao.rentDao(rname, raddr, rtel, remail, risbn, rtitle, rauthor, rpublisher, rprice, rdate, rimage);
+		RentDao rdao = sqlSession.getMapper(RentDao.class);
+		BookDao bdao = sqlSession.getMapper(BookDao.class);
+		
+		rdao.rentDao(rid, rname, raddr, rtel, remail, risbn, rtitle, rauthor, rpublisher, rprice, rdate, rimage);
+		bdao.listCheckDao(amount, risbn);
+		
 		
 		return "member/book_rentOk";
 	}
-	
+	@RequestMapping(value="/book_rentList")
+	public String rentList(Model model) {
+		RentDao dao = sqlSession.getMapper(RentDao.class);
+		
+		ArrayList<RentDto> dtos = dao.rentListDao();
+		
+		model.addAttribute("rentList", dtos);
+		
+		return "member/book_rentList";
+	}
+	@RequestMapping(value = "/book_rentListView")
+	public String book_rentListView(HttpServletRequest request, Model model) {
+		
+		String isbn = request.getParameter("isbn");
+		
+		BookDao dao = sqlSession.getMapper(BookDao.class);
+		
+		BookDto bookDto = dao.bookViewDao(isbn);
+		
+		model.addAttribute("bookDto", bookDto);
+		
+		return "member/book_rentListView";
+	}
 	//===========================관리자 컨트롤러===============================
 	
 	@RequestMapping(value="/manager/mngIndex")
@@ -400,9 +424,31 @@ public class BookController {
 		return "manager/book_register";
 	}
 	
-	@RequestMapping(value="/manager/mngContact")
-	public String mngContact() {
-		return "manager/mngContact";
+	@RequestMapping(value="/manager/rent&return_list")
+	public String mngContact(Model model) {
+		RentDao dao = sqlSession.getMapper(RentDao.class);
+		
+		ArrayList<RentDto> dtos = dao.rentListDao();
+		
+		model.addAttribute("rentList", dtos);
+		
+		return "manager/rent&return_list";
+	}
+	@RequestMapping(value="/manager/book_return")
+	public String book_return(HttpServletRequest request, Model model) {
+		String risbn = request.getParameter("isbn");
+		int rent = 0;
+		int amount=1;
+		
+		RentDao rdao = sqlSession.getMapper(RentDao.class);
+		BookDao bdao = sqlSession.getMapper(BookDao.class);
+		
+		rdao.returnCheckDao(rent, risbn);
+		bdao.listCheckDao(amount, risbn);
+		
+		model.addAttribute("rent", rent);
+		
+		return "manager/book_return";
 	}
 	
 	@RequestMapping(value="/manager/mngBoard")

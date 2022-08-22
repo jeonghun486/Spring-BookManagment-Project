@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,11 +29,19 @@
 			<table width="70%" cellspacing="0" border="0" cellpadding="10">
 				<tr height="534">
 					<td bgcolor="#B3B3B3" align="center">
-					<span class="content_text" >
-						안녕하세요 Web Application 백엔드 개발자 주정훈입니다.
-						보시고 계신 페이지는 Spring Boot Framework으로 개발되었습니다.
-						자바 백 엔드 서버 개발자가 필요하시면 <a href="mailto:jjeongkun486@naver.com">jjeongkun486@naver.com</a>으로 연락주시기 바랍니다 
-					</span>
+					<c:choose>
+						<c:when test="${rent=='0' }">
+							<span class="content_text">
+								반납이 정상적으로 처리되었습니다.
+							</span>
+						</c:when>
+					</c:choose>
+						
+					</td>
+				</tr>
+				<tr >
+					<td bgcolor="#B3B3B3" align="center">
+						<input class="btn_book" type="button" value="뒤로가기" onclick="location.href='rent&return_list'">
 					</td>
 				</tr>
 			</table>

@@ -45,7 +45,7 @@
 						if(sessionId != null){
 				%>
 			<td class="header_menu" width="10%">
-				<a href="mngProfile">대여요청목록</a>
+				<a href="rent&return_list">대여 및 반납확인</a>
 			</td>
 				<%
 					}

@@ -31,7 +31,8 @@
 							<form action="book_rentOk" method="post" name="rent_form"><br><br>
 								<span class="rent_title">아래의 양식을 작성해 주세요.</span><br><br><br><br>
 								<input  class="input_box" type="hidden" name="image"  value="${bookDto.image }">
-								
+								<input class="input_box" type="hidden" name="amount"  value="${bookDto.amount }">
+								<input class="input_box" type="hidden" name="memid"  value="${memberDto.memid }">
 								<tr>	
 									<td><span class="content_text">ISBN : &nbsp;</span></td>
 									<td><input  class="input_box" type="text" name="isbn"  value="${bookDto.isbn }" readonly></td>

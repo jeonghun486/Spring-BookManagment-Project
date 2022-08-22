@@ -15,4 +15,5 @@ public interface BookDao {
 		public BookDto bookViewDao(String isbn);
 		public void bookDeleteDao(String isbn);
 		public void bookUpdateDao(String title, String author, String publisher, String pdate, String image, String price, String description, String isbn);
+		public void listCheckDao(int amount, String isbn);
 }
