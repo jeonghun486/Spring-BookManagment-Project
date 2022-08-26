@@ -94,12 +94,12 @@
 										var rDate = new Date(rdate_arr[0], rdate_arr[1], rdate_arr[2]);
 										var nDate = new Date(year, month, day);
 									
-										if(nDate.getTime() > rDate.getTime()){
+										
 										var btMs = nDate.getTime() - rDate.getTime() ;
 										var btDay = btMs / (1000*60*60*24) ;
 									
-										return document.getElementById('over_Date').innerHTML = btDay;
-										}
+										document.getElementById('over_Date').innerHTML = btDay;
+										
 										}
 								</script>
 
