@@ -19,7 +19,7 @@ td.board_content{
 	font-weight: nomal;
 	font-family: malgun;
 	color: #000000;
-	background-color: #e5e5e5;
+	background-color: #FFE5C2;
 	text-align: left;
 	border-style: solid;
 	border-color: #ffffff;
@@ -27,6 +27,18 @@ td.board_content{
 }
 
 td.book_title{
+	
+	font-size: 17px;
+	font-weight: bold;
+	font-family: Arial;
+	color: #ffffff;
+	background-color: #4f4f4f;
+	text-align: center;
+	border-style: solid;
+	border-color: #ffffff;
+	border-width: 1px;
+}
+td.book_title1{
 	
 	font-size: 15px;
 	font-weight: bold;
@@ -40,15 +52,16 @@ td.book_title{
 }
 td.book_content{
 	
-	font-size: 12px;
-	font-weight: nomal;
+	font-size: 14px;
+	font-weight: bold;
 	font-family: malgun;
-	color: #4e6cd8;
-	background-color: #e5e5e5;
+	color: #585858;
+	background-color: #FFE5C2;
 	text-align: left;
 	border-style: solid;
 	border-color: #ffffff;
 	border-width: 1px;
+	text-align: center;
 }
 td.book_view{
 	
@@ -56,10 +69,46 @@ td.book_view{
 	font-weight: nomal;
 	font-family: malgun;
 	color: #4e6cd8;
-	background-color: #e5e5e5;
-	text-align: left;
+	background-color: #FFE5C2;
+	text-align: center;
 	border-style: solid;
 	border-color: #ffffff;
 	border-width: 1px;
 	text-decoration:underline;
+}
+td.book_returnY{
+	
+	font-size: 12px;
+	font-weight: nomal;
+	font-family: malgun;
+	color: #0000ff;
+	background-color: #FFE5C2;
+	border-style: solid;
+	border-color: #ffffff;
+	border-width: 1px;
+	text-align: center;
+}
+td.book_returnN{
+	
+	font-size: 12px;
+	font-weight: nomal;
+	font-family: malgun;
+	color: #fa053d;
+	background-color: #FFE5C2;
+	border-style: solid;
+	border-color: #ffffff;
+	border-width: 1px;
+	text-align: center;
+}
+td.book_rtitle{
+	
+	font-size: 15px;
+	font-weight: nomal;
+	font-family: malgun;
+	color: #4e6cd8;
+	background-color: #FFE5C2;
+	text-align: center;
+	border-style: solid;
+	border-color: #ffffff;
+	border-width: 1px;
 }

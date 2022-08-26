@@ -13,11 +13,7 @@
 	<%@ include file="../include/header.jsp" %>
 	<center>
 	<table width="70%" cellspacing="0" border="0" cellpadding="20">
-		<tr >
-			<td align="center">
-				<span class="index_title01">DEVELOPER JEONGHOON'S PROFILE</span>
-			</td>
-		</tr>
+		
 		<tr>
 			<td align="center">
 				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
@@ -26,7 +22,7 @@
 		<tr>
 			<table width="70%" cellspacing="0" border="0" cellpadding="10">
 				<tr height="534">
-					<td bgcolor="#B3B3B3" align="center">
+					<td bgcolor="C7D3ED" align="center">
 						<table>
 							<form action="deleteOk" method="post" name="delete_form">
 									
@@ -35,7 +31,7 @@
 								
 									<span class="content_text">비밀번호를 입력해 주세요 &nbsp;</span><br><br>
 									
-									<input class="input_box" type="password" name="mempw_check" ><br><br><br><br>
+									<input class="input_box" type="password" name="mempw_check" placeholder="비밀번호 입력."><br><br><br><br>
 								
 									
 									<input class="button" type="button" value="회원탈퇴" onclick="deleteCheck()">

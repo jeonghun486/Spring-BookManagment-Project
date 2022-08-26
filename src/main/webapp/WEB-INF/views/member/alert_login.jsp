@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,14 +12,10 @@
 <title>** Profile Web</title>
 </head>
 <body>
-	<%@ include file="../include/mngHeader.jsp" %>
+	<%@ include file="../include/header.jsp" %>
 	<center>
 	<table width="70%" cellspacing="0" border="0" cellpadding="20">
-		<tr >
-			<td align="center">
-				<span class="index_title01">DEVELOPER JEONGHOON'S PROFILE</span>
-			</td>
-		</tr>
+		
 		<tr>
 			<td align="center">
 				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
@@ -26,12 +24,16 @@
 		<tr>
 			<table width="70%" cellspacing="0" border="0" cellpadding="10">
 				<tr height="534">
-					<td bgcolor="#B3B3B3" align="center">
-					<span class="content_text" >
-						안녕하세요 Web Application 백엔드 개발자 주정훈입니다.
-						보시고 계신 페이지는 Spring Boot Framework으로 개발되었습니다.
-						자바 백 엔드 서버 개발자가 필요하시면 <a href="mailto:jjeongkun486@naver.com">jjeongkun486@naver.com</a>으로 연락주시기 바랍니다 
-					</span>
+					<td bgcolor="C7D3ED" align="center">
+					<script type="text/javascript">
+						alert("로그인후에 사용가능합니다.");// 경고창 띄우기
+						history.go(-1);// 이전 페이지로 돌려보냄
+					</script>
+					</td>
+				</tr>
+				<tr >
+					<td bgcolor="C7D3ED" align="center">
+						<input class="btn_rent" type="button" value="확인" onclick="location.href='index'">
 					</td>
 				</tr>
 			</table>

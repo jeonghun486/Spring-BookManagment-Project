@@ -16,11 +16,7 @@
 	<%@ include file="../include/mngHeader.jsp" %>
 	<center>
 	<table width="70%" cellspacing="0" border="0" cellpadding="20">
-		<tr >
-			<td align="center">
-				<span class="index_title01">DEVELOPER JEONGHOON'S PROFILE</span>
-			</td>
-		</tr>
+		
 		<tr>
 			<td align="center">
 				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
@@ -29,7 +25,7 @@
 		<tr>
 			<table width="70%" cellspacing="0" border="0" cellpadding="10">
 				<tr height="534">
-					<td bgcolor="#B3B3B3" align="center">
+					<td bgcolor="C7D3ED" align="center">
 						<span class="content_text">※고객문의 게시판</span>
 						<table width="90%" border="0" cellspacing="0" cellpadding="10">
 							

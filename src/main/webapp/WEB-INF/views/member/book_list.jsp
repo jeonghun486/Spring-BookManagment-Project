@@ -16,11 +16,7 @@
 	<%@ include file="../include/header.jsp" %>
 	<center>
 	<table width="70%" cellspacing="0" border="0" cellpadding="20">
-		<tr >
-			<td align="center">
-				<span class="index_title01">DEVELOPER JEONGHOON'S PROFILE</span>
-			</td>
-		</tr>
+		
 		<tr>
 			<td align="center">
 				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
@@ -29,9 +25,25 @@
 		<tr>
 			<table width="90%" cellspacing="0" border="0" cellpadding="10">
 				<tr height="534">
-					<td bgcolor="#B3B3B3" align="center">
-						<span class="content_text">※도서목록 조회</span>
+					<td bgcolor="C7D3ED" align="center">
+						<span class="content_text">※도서목록 조회</span><br><br>
+						
 						<table width="90%" border="0" cellspacing="0" cellpadding="10">
+							<form action="book_list">
+							<tr align="right">
+								<td align="left" colspan="2" class="list_count">▷ 총 ${listCount }권의 도서가 있습니다.</td>
+								<td colspan="5">
+									<select name="searchOption">
+										<option value="isbn">ISBN</option>
+							            <option value="title">제목</option>
+							            <option value="author">저자</option>
+							            <option value="publisher">출판사</option>
+						         	</select> 
+						        	<input type="text" name="searchKeyword">
+						        	<input type="submit" value="검색" >
+						        </td>
+							</tr>
+							</form>
 							<tr>
 								<td class="book_title" width="13%">ISBN</td>
 								<td class="book_title" width="17%">저자</td>
@@ -59,7 +71,7 @@
 								</td>
 								<td class="book_content">${bookDto.publisher }</td>
 								<td class="book_content">${bookDto.pdate }</td>
-								<td class="book_content">${bookDto.price }</td>
+								<td class="book_content">${bookDto.price }원</td>
 								<c:choose>
 								<c:when test="${bookDto.amount=='1'}">
 									<td class="book_content"><input type="button" class="btn_rentY" value="대여" onclick="location.href='book_view?isbn=${bookDto.isbn}'"></td>

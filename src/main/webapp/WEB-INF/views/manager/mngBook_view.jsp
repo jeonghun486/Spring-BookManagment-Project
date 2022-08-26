@@ -14,11 +14,7 @@
 	<%@ include file="../include/mngHeader.jsp" %>
 	<center>
 	<table width="70%" cellspacing="0" border="0" cellpadding="20">
-		<tr >
-			<td align="center">
-				<span class="index_title01">DEVELOPER JEONGHOON'S PROFILE</span>
-			</td>
-		</tr>
+		
 		<tr>
 			<td align="center">
 				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
@@ -27,13 +23,26 @@
 		<tr>
 			<table width="70%" cellspacing="0" border="0" cellpadding="10">
 				<tr height="534">
-					<td bgcolor="#B3B3B3" align="center">
+					<td bgcolor="C7D3ED" align="center">
 						<table>
 							<form action="mngBook_modify" method="post" name="book_form">
-								<tr>
-											<td><span class="reg_text">ISBN  &nbsp;</span></td>
-											<td><input  class="input_box" type="text"  name="isbn" value="${bookDto.isbn }" readonly></td>
-											<td rowspan="6"><img class="book_img" src="${bookDto.image }" name="image"></td>
+									  <tr>
+										<td><span class="reg_text">ISBN  &nbsp;</span></td>
+										<td><input  class="input_box" type="text"  name="isbn" value="${bookDto.isbn }" readonly></td>
+											<c:choose>
+												<c:when test="${bookDto.image==null}">
+													<c:if test="${fbDto.fextension == 'jpg' or fbDto.fextension == 'png' or fbDto.fextension == 'gif' or fbDto.fextension == 'bmp'}">
+														<td rowspan="6">
+															<img class="book_img" src="${pageContext.request.contextPath }/resources/uploadfiles/${fbDto.fname}">
+														</td>
+													</c:if>
+												</c:when>
+												<c:otherwise>
+													<td rowspan="6">
+														<img class="book_img" src="${bookDto.image}" name="image">
+													</td>
+												</c:otherwise>
+											</c:choose> 
 										</tr>
 										<tr>
 											<td><span class="reg_text">제목  &nbsp;</span></td>
@@ -63,7 +72,12 @@
 											<td><span class="reg_text">책 소개  &nbsp;</span></td>
 											<td colspan="2"><textarea class="reg_text" rows="5" cols="25" name="description">${bookDto.description }</textarea></td>
 										</tr>
-								
+										<tr>
+											<td>
+												<a href="${pageContext.request.contextPath }/resources/uploadfiles/${fileDto.filename}" style="text-decoration:none">
+			     								<span class="file_info">※ 첨부파일 : ${fileDto.orifilename}</span></a>
+			     							</td>
+			     						</tr>
 								<tr>
 									<td colspan="3" align="right">
 											<input class="btn_book" type="button" value="도서등록" onclick="location.href='book_register'">

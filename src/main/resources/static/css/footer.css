@@ -12,3 +12,9 @@ td.footer_text{
 	font-family: Arial;
 	text-align: center;
 }
+td#f_hbar{
+	border-radius:15px 15px 0 0;
+}
+td#f_lbar{
+	border-radius:0 0 15px 15px;
+}

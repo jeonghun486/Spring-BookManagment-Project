@@ -3,6 +3,7 @@
 body{
 	margin:0;
 	padding:0;
+	
 }
 
 td.header_menu{
@@ -11,6 +12,7 @@ td.header_menu{
 	color: #ddeeff;
 	font-family: Arial;
 	text-align: center;
+	
 }
 
 a:link{
@@ -28,4 +30,41 @@ a:visited {
 a:hover {
 	text-decoration: underline;
 	color:#bed6fc;
+}
+
+td.empty_rmenu{
+border-radius:15px 0 0 15px;
+}
+td.empty_lmenu{
+border-radius:0 15px 15px 0;
+}
+td.a_log{
+	font-size: 12px;
+	color: #000000;
+	font-family: Arial;
+	text-align: right;
+}
+a.join:hover {
+	text-decoration: underline;
+	color:#000000;
+}
+a.join:link{
+	
+	text-decoration: underline;
+	color:#000000;
+}
+
+a.join:visited {
+	
+	text-decoration: none;
+	color:#000000;
+}
+tr.log_font{
+	font-size:12px;
+}
+span.header_title{
+	font-size:25px;
+	color:#017426;
+	font-family: Arial;
+	font-weight:bold;
 }

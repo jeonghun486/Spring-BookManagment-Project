@@ -6,7 +6,7 @@
    
 <mapper namespace="com.hoon.bookmanagement.dao.BookDao">
 
-	<!-- Member SQL -->
+	<!-- Book SQL -->
 	<insert id="registerDao">
 		insert into book_list(isbn, title, author, publisher, pdate, image, price, description) values(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8})
 	</insert>
@@ -27,4 +27,35 @@
 	<update id="bookUpdateDao">
 		update book_list set title=#{param1}, author=#{param2}, publisher=#{param3}, pdate=#{param4}, image=#{param5}, price=#{param6}, description=#{param7} where isbn=#{param8}
 	</update>
+	<update id="listCheckDao">
+		update book_list set amount=#{param1} where isbn=#{param2}
+	</update>
+	
+	<!-- 검색 SQL -->
+	<select id="isbnSearchlist" resultType="com.hoon.bookmanagement.dto.BookDto">
+		select * from book_list where isbn like '%' || #{param1} || '%' order by isbn desc
+	</select>
+	
+	<select id="titleSearchlist" resultType="com.hoon.bookmanagement.dto.BookDto">
+		select * from book_list where title like '%' || #{param1} || '%' order by isbn desc
+	</select>
+	
+	<select id="authorSearchlist" resultType="com.hoon.bookmanagement.dto.BookDto">
+		select * from book_list where author like '%' || #{param1} || '%' order by isbn desc 
+	</select>
+	
+	<select id="publisherSearchlist" resultType="com.hoon.bookmanagement.dto.BookDto">
+		select * from book_list where publisher like '%' || #{param1} || '%' order by isbn desc
+	</select>
+	
+	<!-- 첨부파일 SQL -->
+	<insert id="fileInsertDao">
+		insert into book_uploading(fnum, isbn, fname, orifname, furl, fextension) 
+		values(bookfile_seq.nextval, #{param1},#{param2},#{param3},#{param4},#{param5})
+	</insert>
+	
+	<select id="GetFileInfoDao" resultType="com.hoon.bookmanagement.dto.BookFileDto">
+		select * from book_uploading where isbn=#{param1}
+	</select>
+	
 </mapper>

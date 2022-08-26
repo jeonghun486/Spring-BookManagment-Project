@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +14,7 @@
 	<%@ include file="../include/header.jsp" %>
 	<center>
 	<table width="70%" cellspacing="0" border="0" cellpadding="20">
-		<tr >
-			<td align="center">
-				<span class="index_title01">DEVELOPER JEONGHOON'S PROFILE</span>
-			</td>
-		</tr>
+		
 		<tr>
 			<td align="center">
 				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
@@ -26,16 +23,29 @@
 		<tr>
 			<table width="70%" cellspacing="0" border="0" cellpadding="10">
 				<tr height="534">
-					<td bgcolor="6799FF" align="center">
+					<td bgcolor="C7D3ED" align="center">
 						<table>
 							<form action="book_rentOk" method="post" name="rent_form"><br><br>
 								<span class="rent_title">아래의 양식을 작성해 주세요.</span><br><br><br><br>
 								<input  class="input_box" type="hidden" name="image"  value="${bookDto.image }">
-								
+								<input class="input_box" type="hidden" name="memid"  value="${memberDto.memid }">
 								<tr>	
 									<td><span class="content_text">ISBN : &nbsp;</span></td>
 									<td><input  class="input_box" type="text" name="isbn"  value="${bookDto.isbn }" readonly></td>
-									<td colspan="2" rowspan="5">&nbsp;&nbsp;<img class="rnt_img" src="${bookDto.image }" name="image"></td>
+									<c:choose>
+										<c:when test="${bookDto.image==null}">
+											<c:if test="${fbDto.fextension == 'jpg' or fbDto.fextension == 'png' or fbDto.fextension == 'gif' or fbDto.fextension == 'bmp'}">
+												<td colspan="2" rowspan="5">&nbsp;&nbsp;
+													<img class="rnt_img" src="${pageContext.request.contextPath }/resources/uploadfiles/${fbDto.fname}">
+												</td>
+											</c:if>
+										</c:when>
+										<c:otherwise>
+											<td colspan="2" rowspan="5">&nbsp;&nbsp;
+												<img class="rnt_img" src="${bookDto.image}" name="image">
+											</td>
+										</c:otherwise>
+									</c:choose> 
 								</tr>
 								<tr>
 									<td><span class="content_text">제목 : &nbsp;</span></td>
@@ -69,8 +79,8 @@
 								<tr>
 									<td><span class="content_text">대여기간 : &nbsp;</span></td>
 									<td>
-										<input  class="input_date" type="date" name="from_date"> ~
-										<input  class="input_date" type="date" name="by_date">
+										<input  class="input_date" type="date" name="rntdate"> ~
+										<input  class="input_date" type="date" name="rtrndate">
 									</td>
 									
 								</tr>

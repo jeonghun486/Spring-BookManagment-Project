@@ -13,11 +13,7 @@
 	<%@ include file="../include/header.jsp" %>
 	<center>
 	<table width="70%" cellspacing="0" border="0" cellpadding="20">
-		<tr >
-			<td align="center">
-				<span class="index_title01">DEVELOPER JEONGHOON'S PROFILE</span>
-			</td>
-		</tr>
+		
 		<tr>
 			<td align="center">
 				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
@@ -26,19 +22,19 @@
 		<tr>
 			<table width="70%" cellspacing="0" border="0" cellpadding="10">
 				<tr height="534">
-					<td bgcolor="#B3B3B3" align="center">
+					<td bgcolor="C7D3ED" align="center">
 						<table>
 							<form action="loginOk" method="post" name="login_form">
 							<span class="login_title"><h1>일반회원 로그인</h1></span>
 								<tr>
 									<td><span class="content_text">아이디  &nbsp;</span></td>
-									<td><input  class="input_box" type="text" name="memid"></td>
+									<td><input  class="input_box" type="text" name="memid" placeholder="아이디를 입력해주세요"></td>
 								<td rowspan="2"><input class="button_log" type="button" value="로그인" onclick="loginCheck()"></td>
 									
 								</tr>
 								<tr>
 									<td><span class="content_text">비밀번호 &nbsp;</span></td>
-									<td><input  class="input_box" type="password" name="mempw"></td>
+									<td><input  class="input_box" type="password" name="mempw" placeholder="비밀번호를 입력해주세요"></td>
 								</tr>
 								<tr>
 									<td colspan="3" align="right">
@@ -52,7 +48,7 @@
 								</tr>
 								<tr >
 									<td valign="bottom" colspan="3" align="center">
-										<input class="button" type="button" value="홈으로" onclick="location.href='index'">
+										<input class="btn_rent" type="button" value="홈으로" onclick="location.href='index'">
 									</td>
 								</tr>
 							</form>

@@ -8,28 +8,13 @@
 
 	<!-- Rent SQL -->
 	<insert id="rentDao">
-		insert into book_rent(rname, raddr, rtel, remail, risbn, rtitle, rauthor, rpublisher, rprice, rdate, rimage) 
-		values(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10},#{param11})
+		insert into book_rent(rid, rname, raddr, rtel, remail, risbn, rtitle, rauthor, rpublisher, rprice, rntdate, rtrndate, rimage) 
+		values(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10},#{param11},#{param12},#{param13})
 	</insert>
-	
-	<select id="checkIdDao" resultType="int">
-		select count(*) from book_member where memid=#{param1}
+	<select id="rentListDao" resultType="com.hoon.bookmanagement.dto.RentDto">
+		select * from book_rent order by risbn desc
 	</select>
-	
-	<select id="checkIdPwDao" resultType="int">
-		select count(*) from book_member where memid=#{param1} and mempw=#{param2}
-	</select>
-	
-	<select id="memberInfoDao" resultType="com.hoon.bookmanagement.dto.MemberDto">
-		select * from book_member where memid=#{param1}
-	</select>
-	
-	<update id="infoModifyDao">
-		update book_member set mempw=#{param1}, memname=#{param2}, memaddr=#{param3}, memtel=#{param4},mememail=#{param5} where memid=#{param6}
+	<update id="returnCheckDao">
+		update book_rent set rent=#{param1}, rdate=#{param2} where risbn=#{param3}
 	</update>
-	
-	<delete id="memberDeleteDao">
-		delete from book_member where memid=#{param1} and mempw=#{param2}
-	</delete>
-	
 </mapper>

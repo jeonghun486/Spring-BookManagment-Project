@@ -9,9 +9,42 @@
 </head>
 <body>
 	<% String sessionId = (String)session.getAttribute("smngid"); %>
-	<table width="100%" cellspacing="0" border="0" cellpadding="0" align="center">
-		<tr height="50" bgcolor="000042">
-			<td width="15%">&nbsp;</td>
+	<table width="90%" cellspacing="0" border="0" cellpadding="0" align="center">
+		<%
+			if(sessionId != null){
+		%>
+			<tr height="40" width="85%" align="center">
+				<td width="20%"></td>
+				<td colspan="4" width="60%">
+					<img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTAyMDNfNDIg%2FMDAxNTQ5MTU2NzczOTc1.ZLD54gbpF86z7AXt4aRbU-UAV_osc2AzQvW7mCFYgtsg.U6O9ZmSvRH-ExwE2Ua8CtS8QbwMysKIdLWaPvpII3CAg.PNG.youmi9080%2FSE-aa48316e-2bf5-4aa0-905a-2d058f718387.png&type=sc960_832" width="50" height="50">
+					<span class="header_title">D O B B Y 도비문고</span>
+				</td>
+				<td width="20%" align="right">
+				<a  class="join" href="mngLogout">로그아웃</a>
+				</td>
+			</tr>
+			<tr  height="40" align="right" class="log_font">
+					<td colspan="7">${smngid }님이 로그인 중입니다.</td>
+			</tr>
+		<%
+			}else{
+		%>
+			<tr height="40" width="85%" align="center">
+				<td width="20%"></td>
+				<td colspan="4" width="60%">
+					<img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTAyMDNfNDIg%2FMDAxNTQ5MTU2NzczOTc1.ZLD54gbpF86z7AXt4aRbU-UAV_osc2AzQvW7mCFYgtsg.U6O9ZmSvRH-ExwE2Ua8CtS8QbwMysKIdLWaPvpII3CAg.PNG.youmi9080%2FSE-aa48316e-2bf5-4aa0-905a-2d058f718387.png&type=sc960_832" width="50" height="50">
+					<span class="header_title">D O B B Y 도비문고</span>
+				</td>
+				<td width="20%" align="right">
+					<a class="join" href="../selectLogin">로그인</a>
+				</td>
+			</tr>
+			<tr  height="40" align="right"></tr>
+		<%
+			}
+		%>
+		<tr height="50" bgcolor="4742DB">
+			<td class="empty_rmenu" width="15%">&nbsp;</td>
 			<td class="header_menu" width="10%">
 				
 				<%
@@ -42,46 +75,25 @@
 				
 			</td>
 				<%
+						if(sessionId == null){
+				%>
+			<td class="header_menu" width="10%">
+				<a href="../alert_login">대여목록</a>
+			</td>
+			<%
+					}
+				%>
+				<%
 						if(sessionId != null){
 				%>
 			<td class="header_menu" width="10%">
-				<a href="mngProfile">대여요청목록</a>
+				<a href="rent&return_list">대여 및 반납확인</a>
 			</td>
 				<%
 					}
 				%>
 			
-			<td class="header_menu" width="10%">
-				<%
-					if(sessionId == null){
-				%>
-					<a href="../selectJoin">회원가입</a>
-				<%
-					} else{
-				%>
-					<a href="mngInfoModify">정보수정</a>
-				
-			</td>
-			<td class="header_menu" width="10%">
-				<a href="mngInfoModify">회원탈퇴</a>
-			</td>
-			<%
-				}
-				%>
-			<td class="header_menu" width="10%">
-				<%
-					
-					if(sessionId == null){
-				%>
-				<a href="../selectLogin">로그인</a>
-				<%
-					} else{
-				%>
-				<a href="mngLogout">로그아웃</a>
-				<%
-				}
-				%>
-			</td>
+			
 			<td class="header_menu" width="10%">
 				<%					
 					if(sessionId == null){
@@ -95,20 +107,8 @@
 					}
 				%>
 			</td>
-			<td width="15%">&nbsp;</td>
+			<td class="empty_lmenu" width="15%">&nbsp;</td>
 		</tr>
-		<%
-			sessionId = (String)session.getAttribute("smngid");
-			if(sessionId != null){
-		%>
-		<table width="100%" height="40">
-			<tr   align="right">
-					<td>${smngid }(관리자)님이 로그인 중입니다.</td>
-			</tr>
-		</table>
-		<%
-			}
-		%>
 	</table>
 	
 </body>

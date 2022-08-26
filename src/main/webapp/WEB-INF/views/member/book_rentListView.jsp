@@ -25,24 +25,25 @@
 				<tr height="534">
 					<td bgcolor="C7D3ED" align="center">
 						<table>
-							<form action="book_rent" method="post" name="book_form">
+							<form method="post" name="book_form">
+								<span></span>
 								<tr>
 											<td><span class="reg_text">ISBN  &nbsp;</span></td>
 											<td><input  class="input_box" type="text"  name="isbn" value="${bookDto.isbn }" readonly></td>
 											<c:choose>
-												<c:when test="${bookDto.image==null}">
-													<c:if test="${fbDto.fextension == 'jpg' or fbDto.fextension == 'png' or fbDto.fextension == 'gif' or fbDto.fextension == 'bmp'}">
-														<td rowspan="6">
-															<img class="book_img" src="${pageContext.request.contextPath }/resources/uploadfiles/${fbDto.fname}">
-														</td>
-													</c:if>
-												</c:when>
-												<c:otherwise>
-													<td rowspan="6">
-														<img class="book_img" src="${bookDto.image}" name="image">
-													</td>
-												</c:otherwise>
-											</c:choose> 
+										<c:when test="${bookDto.image==null}">
+											<c:if test="${fbDto.fextension == 'jpg' or fbDto.fextension == 'png' or fbDto.fextension == 'gif' or fbDto.fextension == 'bmp'}">
+												<td rowspan="6">&nbsp;&nbsp;
+													<img class="book_img" src="${pageContext.request.contextPath }/resources/uploadfiles/${fbDto.fname}">
+												</td>
+											</c:if>
+										</c:when>
+										<c:otherwise>
+											<td rowspan="6">&nbsp;&nbsp;
+												<img class="book_img" src="${bookDto.image}" name="image">
+											</td>
+										</c:otherwise>
+									</c:choose> 
 										</tr>
 										<tr>
 											<td><span class="reg_text">제목  &nbsp;</span></td>
@@ -71,24 +72,8 @@
 								
 								<tr>
 									<td colspan="3" align="center">
-										<% 
-											String smemid = (String) session.getAttribute("smemid");
-											if(smemid != null){
-										%>
-										<c:choose>
-											<c:when test="${bookDto.amount == 1}">
-												<input class="btn_rent" type="button" value="대여하기" onclick="location.href='book_rent?isbn=${bookDto.isbn}'">&nbsp;
-											</c:when>	
-											<c:otherwise>
-												
-											</c:otherwise>
-										</c:choose>
-											
-											
-										<%
-											}
-										%>
-											<input class="btn_rent" type="button" value="뒤로가기" onclick="location.href='book_list'">&nbsp;
+										
+											<input class="btn_rent" type="button" value="뒤로가기" onclick="location.href='book_rentList'">&nbsp;
 									</td>
 								</tr>
 							</form>

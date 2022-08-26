@@ -15,11 +15,7 @@
 	<%@ include file="../include/mngHeader.jsp" %>
 	<center>
 	<table width="70%" cellspacing="0" border="0" cellpadding="20">
-		<tr >
-			<td align="center">
-				<span class="index_title01">DEVELOPER JEONGHOON'S PROFILE</span>
-			</td>
-		</tr>
+		
 		<tr>
 			<td align="center">
 				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
@@ -28,7 +24,7 @@
 		<tr>
 			<table width="70%" cellspacing="0" border="0" cellpadding="10">
 				<tr height="534">
-					<td bgcolor="#B3B3B3" align="center">
+					<td bgcolor="C7D3ED" align="center">
 					
 					<c:choose>
 						<c:when test="${checkBook=='0' }">
@@ -37,7 +33,20 @@
 										<tr>
 											<td><span class="reg_text">ISBN  &nbsp;</span></td>
 											<td><input  class="input_box" type="text"  name="isbn" id="isbn" value="${isbn }"></td>
-											<td rowspan="6"><img class="book_img" src="${image }" name="image"></td>
+											<c:choose>
+												<c:when test="${image==null}">
+													<c:if test="${fextension == 'jpg' or fextension == 'png' or fextension == 'gif' or fextension == 'bmp'}">
+														<td rowspan="6">
+															<img class="book_img" src="${pageContext.request.contextPath }/resources/uploadfiles/${fname}">
+														</td>
+													</c:if>
+												</c:when>
+												<c:otherwise>
+													<td rowspan="6">
+														<img class="book_img" src="${image}" name="image">
+													</td>
+												</c:otherwise>
+											</c:choose> 
 										</tr>
 										<tr>
 											<td><span class="reg_text">제목  &nbsp;</span></td>
@@ -66,7 +75,7 @@
 										<tr height = "40"></tr>
 										<tr>
 											<td colspan="3" align="center">
-												<input class="button" type="button" value="확인" onclick="location.href='book_register'">&nbsp;&nbsp;
+												<input class="button" type="button" value="확인" onclick="location.href='mngBook_list'">&nbsp;&nbsp;
 											</td>
 										</tr>
 									</table>

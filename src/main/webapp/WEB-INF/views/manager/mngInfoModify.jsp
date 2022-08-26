@@ -13,11 +13,7 @@
 	<%@ include file="../include/mngHeader.jsp" %>
 	<center>
 	<table width="70%" cellspacing="0" border="0" cellpadding="20">
-		<tr >
-			<td align="center">
-				<span class="index_title01">DEVELOPER JEONGHOON'S PROFILE</span>
-			</td>
-		</tr>
+		
 		<tr>
 			<td align="center">
 				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
@@ -26,7 +22,7 @@
 		<tr>
 			<table width="70%" cellspacing="0" border="0" cellpadding="10">
 				<tr height="534">
-					<td bgcolor="#B3B3B3" align="center">
+					<td bgcolor="C7D3ED" align="center">
 						<table>
 							<form action="mngInfoModifyOk" method="post" name="join_form">
 								<tr>
@@ -39,7 +35,7 @@
 								</tr>
 								<tr>
 									<td><span class="content_text">비밀번호 확인 : &nbsp;</span></td>
-									<td><input  class="input_box" type="password" name="mngpw_check"></td>
+									<td><input  class="input_box" type="password" name="mngpw_check" placeholder="비밀번호 입력."></td>
 								</tr>
 								<tr>
 									<td><span class="content_text">이름 : &nbsp;</span></td>

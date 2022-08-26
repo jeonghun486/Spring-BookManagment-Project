@@ -31,11 +31,6 @@
 		reg_form.pdate.focus();
 		return;
 	}
-	if(document.reg_form.image.value.length == 0){
-		alert("이미지링크 입력해 주세요.");
-		reg_form.image.focus();
-		return;
-	}
 	if(document.reg_form.price.value.length == 0){
 		alert("가격을 입력해 주세요.");
 		reg_form.price.focus();

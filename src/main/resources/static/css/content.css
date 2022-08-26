@@ -2,8 +2,8 @@
 
 span.content_text{
 	
-	font-size: 20px;
-	color: #ffffff;
+	font-size: 25px;
+	color: #4375DB;
 	font-family: malgun;
 	font-weight: bold;
 	font-align:center;
@@ -56,18 +56,19 @@ textarea.content{
 
 input.button{
 	
-	border: 1px solid #d5d5d5;
-	background-color: #5e5e5e;
+	border: 2px solid #10459e;
+	background-color: #1a64d5;
 	width: 150px;
 	padding:5px;
 	font-family: Arial;
 	font-size: 18px;
-	color: #d5d5d5;
+	color: #ffffff;
 }
 
 input.button:hover{
 	
-	background-color: #363636;
+	background-color:#b4cef5;
+	color:#10459e;
 }
 
 select.tel1{
@@ -111,8 +112,8 @@ input.select_join:hover{
 }
 input.button_log{
 	
-	border: 1px solid #d5d5d5;
-	background-color: #5e5e5e;
+	border: 2px solid #10459e;
+	background-color: #1a64d5;
 	width: 150px;
 	height: 90px;
 	padding:5px;
@@ -120,10 +121,14 @@ input.button_log{
 	font-size: 18px;
 	color: #d5d5d5;
 }
+input.button_log:hover{
+	background-color:#b4cef5;
+	color:#10459e;
+}
 span.reg_text{
 	
 	font-size: 15px;
-	color: #ffffff;
+	color: #4375DB;
 	font-family: malgun;
 	font-weight: bold;
 	font-align:center;
@@ -144,6 +149,7 @@ textarea.reg_text{
 img.book_img{
 	width: 250px;
 	height: 300px;
+	border:solid 5px #2d10f5;
 }
 img.rnt_img{
 	width: 300px;
@@ -172,6 +178,7 @@ input.btn_rentN{
 	color: #fa053d;
 	border-radius: 12px;
 }
+
 input.btn_book{
 	
 	border: 1px solid #d5d5d5;
@@ -216,4 +223,15 @@ input.btn_rent{
 input.btn_rent:hover{
 	background-color:#b4cef5;
 	color:#10459e;
+}
+input.btn_returnN{
+	
+	border: 3px solid #737373;
+	background-color: #e0e0e0;
+	width: 65px;
+	padding:5px;
+	font-family: Arial;
+	font-size: 12px;
+	color: #0000ff;
+	border-radius: 12px;
 }

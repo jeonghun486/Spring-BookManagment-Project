@@ -1,16 +1,26 @@
 package com.hoon.bookmanagement;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Calendar;
+import java.sql.Time;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hoon.bookmanagement.dao.BoardDao;
 import com.hoon.bookmanagement.dao.BookDao;
@@ -19,8 +29,11 @@ import com.hoon.bookmanagement.dao.MemberDao;
 import com.hoon.bookmanagement.dao.RentDao;
 import com.hoon.bookmanagement.dto.BoardDto;
 import com.hoon.bookmanagement.dto.BookDto;
+import com.hoon.bookmanagement.dto.BookFileDto;
 import com.hoon.bookmanagement.dto.ManagerDto;
 import com.hoon.bookmanagement.dto.MemberDto;
+import com.hoon.bookmanagement.dto.RentDto;
+
 
 @Controller
 public class BookController {
@@ -44,18 +57,9 @@ public class BookController {
 		return "member/index";
 	}
 	
-	@RequestMapping(value="/rentList")
-	public String rentList() {
-		return "member/rentList";
-	}
-	
 	@RequestMapping(value="/login")
 	public String login() {
 		return "member/login";
-	}
-	@RequestMapping(value="/selectJoin")
-	public String selectJoin() {
-		return "member/selectJoin";
 	}
 	@RequestMapping(value="/selectLogin")
 	public String selectLogin() {
@@ -65,6 +69,9 @@ public class BookController {
 	@RequestMapping(value="/join")
 	public String join() {
 		return "member/join";
+	}@RequestMapping(value="/alert_login")
+	public String alert_login() {
+		return "member/alert_login";
 	}
 	
 	@RequestMapping(value="/board")
@@ -250,7 +257,7 @@ public class BookController {
 		return "member/deleteOk";
 	}
 	
-	@RequestMapping(value="/member/board_write", method=RequestMethod.POST)
+	@RequestMapping(value="/board_write", method=RequestMethod.POST)
 	public String board_write(HttpServletRequest request, Model model) {
 		
 		String bmid = request.getParameter("bmid");
@@ -295,7 +302,7 @@ public class BookController {
 		return "redirect:board_list";
 	}
 	
-	@RequestMapping(value = "/member/board_modify")
+	@RequestMapping(value = "/board_modify")
 	public String  board_modify(HttpServletRequest request, Model model) {
 		
 		String bmid = request.getParameter("bmid");
@@ -310,13 +317,32 @@ public class BookController {
 		return "redirect:board_list";
 	}
 	@RequestMapping(value="/book_list")
-	public String book_list(Model model) {
+	public String book_list(HttpServletRequest request, Model model) {
+		String searchKeyword = request.getParameter("searchKeyword");
+		String searchOption = request.getParameter("searchOption");
 		
 		BookDao dao = sqlSession.getMapper(BookDao.class);
 		
-		ArrayList<BookDto> dtos = dao.bookListDao();
+		//ArrayList<BookDto> dtos = dao.bookListDao();
+		ArrayList<BookDto> dtos = null;
+		
+		if(searchKeyword == null) {
+			dtos = dao.bookListDao();
+		}else if(searchOption.equals("isbn")) {
+			dtos = dao.isbnSearchlist(searchKeyword);
+		} else if(searchOption.equals("title")) {
+			dtos = dao.titleSearchlist(searchKeyword);
+		} else if(searchOption.equals("author")) {
+			dtos = dao.authorSearchlist(searchKeyword);
+		} else if(searchOption.equals("publisher")) {
+			dtos = dao.publisherSearchlist(searchKeyword);
+		}
+		
+		int listCount = dtos.size();//게시판 글목록의 글 개수
 		
 		model.addAttribute("bookList", dtos);
+		model.addAttribute("listCount", listCount);
+		
 		
 		return "member/book_list";
 	}
@@ -328,8 +354,10 @@ public class BookController {
 		BookDao dao = sqlSession.getMapper(BookDao.class);
 		
 		BookDto bookDto = dao.bookViewDao(isbn);
+		BookFileDto fbDto = dao.GetFileInfoDao(isbn);
 		
 		model.addAttribute("bookDto", bookDto);
+		model.addAttribute("fbDto", fbDto);
 		
 		return "member/book_view";
 	}
@@ -351,8 +379,10 @@ public class BookController {
 		BookDao bdao = sqlSession.getMapper(BookDao.class);
 		
 		BookDto bookDto = bdao.bookViewDao(isbn);
+		BookFileDto fbDto = bdao.GetFileInfoDao(isbn);
 		
 		model.addAttribute("bookDto", bookDto);
+		model.addAttribute("fbDto", fbDto);
 		
 		return "member/book_rent";
 	}
@@ -368,28 +398,53 @@ public class BookController {
 		String raddr = request.getParameter("memaddr");
 		String rtel = request.getParameter("memtel");
 		String remail = request.getParameter("mememail");
-		String from_date = request.getParameter("from_date");
-		String by_date = request.getParameter("by_date");
-		String rdate = from_date + "~" + by_date;
+		String rntdate = request.getParameter("rntdate");
+		String rtrndate = request.getParameter("rtrndate");
 		String rimage = request.getParameter("image");
+		String rid = request.getParameter("memid");
+		int amount = 0;
 		
 		
-		RentDao dao = sqlSession.getMapper(RentDao.class);
 		
-		dao.rentDao(rname, raddr, rtel, remail, risbn, rtitle, rauthor, rpublisher, rprice, rdate, rimage);
+		RentDao rdao = sqlSession.getMapper(RentDao.class);
+		BookDao bdao = sqlSession.getMapper(BookDao.class);
+		
+		rdao.rentDao(rid, rname, raddr, rtel, remail, risbn, rtitle, rauthor, rpublisher, rprice, rntdate, rtrndate, rimage);
+		bdao.listCheckDao(amount, risbn);
+		
 		
 		return "member/book_rentOk";
 	}
-	
+	@RequestMapping(value="/book_rentList")
+	public String rentList(Model model) throws Exception {
+		RentDao dao = sqlSession.getMapper(RentDao.class);
+		
+		ArrayList<RentDto> dtos = dao.rentListDao();
+		
+		model.addAttribute("rentList", dtos);
+		
+		return "member/book_rentList";
+	}
+	@RequestMapping(value = "/book_rentListView")
+	public String book_rentListView(HttpServletRequest request, Model model) {
+		
+		String isbn = request.getParameter("isbn");
+		
+		BookDao dao = sqlSession.getMapper(BookDao.class);
+		
+		BookDto bookDto = dao.bookViewDao(isbn);
+		BookFileDto fbDto = dao.GetFileInfoDao(isbn);
+		
+		model.addAttribute("bookDto", bookDto);
+		model.addAttribute("fbDto", fbDto);
+		
+		return "member/book_rentListView";
+	}
 	//===========================관리자 컨트롤러===============================
 	
 	@RequestMapping(value="/manager/mngIndex")
 	public String mngIndex() {
 		return "manager/mngIndex";
-	}
-	@RequestMapping(value="manager/mngJoin")
-	public String mngJoin() {
-		return "manager/mngJoin";
 	}
 	@RequestMapping(value="manager/mngLogin")
 	public String mngLogin() {
@@ -400,9 +455,52 @@ public class BookController {
 		return "manager/book_register";
 	}
 	
-	@RequestMapping(value="/manager/mngContact")
-	public String mngContact() {
-		return "manager/mngContact";
+	@RequestMapping(value="/manager/rent&return_list")
+	public String mngContact(HttpServletRequest request, Model model) {
+		RentDao dao = sqlSession.getMapper(RentDao.class);
+		
+		ArrayList<RentDto> dtos = dao.rentListDao();
+		
+		Calendar now = Calendar.getInstance();
+		int curYear = now.get(Calendar.YEAR);
+		int curMonth = now.get(Calendar.MONTH) + 1;
+		int curDay = now.get(Calendar.DAY_OF_MONTH);
+		
+		String curDate = curYear+"-"+curMonth+"-"+curDay;
+		int listCount = dtos.size();
+		
+		model.addAttribute("curDate", curDate);
+		model.addAttribute("listCount", listCount);
+		model.addAttribute("rentList", dtos);
+		
+		return "manager/rent&return_list";
+	}
+	
+	@RequestMapping(value="/manager/book_return")
+	public String book_return(HttpServletRequest request, Model model) {
+		String risbn = request.getParameter("isbn");
+		
+		Calendar now = Calendar.getInstance();
+		int curYear = now.get(Calendar.YEAR);
+		int curMonth = now.get(Calendar.MONTH) + 1;
+		int curDay = now.get(Calendar.DAY_OF_MONTH);
+		
+		String curDate = curYear+"-"+curMonth+"-"+curDay;
+		
+		int rent = 0;
+		int amount=1;
+		
+		RentDao rdao = sqlSession.getMapper(RentDao.class);
+		BookDao bdao = sqlSession.getMapper(BookDao.class);
+		
+		rdao.returnCheckDao(rent, curDate, risbn);
+		
+		bdao.listCheckDao(amount, risbn);
+		
+		model.addAttribute("rent", rent);
+		
+		
+		return "manager/book_return";
 	}
 	
 	@RequestMapping(value="/manager/mngBoard")
@@ -437,39 +535,6 @@ public class BookController {
 		
 		return "manager/mngBoard_list";
 	}
-	
-	@RequestMapping(value="/manager/mngJoinOk", method=RequestMethod.POST)
-	public String mngJoinOk(HttpServletRequest request, Model model) {
-		
-		String mngid = request.getParameter("mngid");
-		String mngpw = request.getParameter("mngpw");
-		String mngname = request.getParameter("mngname");
-		String mngaddr = request.getParameter("mngaddr");
-		String mngtel = request.getParameter("mngtel");
-		String mngemail = request.getParameter("mngemail");
-		
-		ManagerDao dao = sqlSession.getMapper(ManagerDao.class);
-		
-		int checkId = dao.checkIdDao(mngid);//아이디 존재 여부체크(1이면 이미 존재, 0이면 존재 안함)
-		
-		if(checkId == 0) {
-			dao.joinDao(mngid, mngpw, mngname, mngaddr, mngtel, mngemail);
-			
-			HttpSession session  = request.getSession();
-			
-			session.setAttribute("smngid", mngid);
-			session.setAttribute("smngname", mngname);
-			
-			model.addAttribute("mngname", mngname);
-			model.addAttribute("mngid", mngid);
-		}
-		model.addAttribute("checkId", checkId);//checkId값이 1(이미 존재) 또는 0(존재 안함)이 전송
-		
-		return "manager/mngJoinOk";
-	}
-	
-	
-	
 	
 	@RequestMapping(value = "/manager/mngLoginOk", method=RequestMethod.POST)
 	public String mngLoginOk(HttpServletRequest request, Model model) {
@@ -651,7 +716,7 @@ public class BookController {
 	
 	
 	@RequestMapping(value="/manager/book_registerOk", method=RequestMethod.POST)
-	public String book_registerOK(HttpServletRequest request, Model model) {
+	public String book_registerOK(HttpServletRequest request, Model model, @RequestPart MultipartFile uploadFiles) throws Exception, Exception {
 		
 		String isbn = request.getParameter("isbn");
 		String title = request.getParameter("title");
@@ -661,14 +726,44 @@ public class BookController {
 		String image = request.getParameter("image");
 		String price = request.getParameter("price");
 		String description = request.getParameter("description");
-		
+		String filename = request.getParameter("uploadFiles");
 		
 		BookDao dao = sqlSession.getMapper(BookDao.class);
 		
-		int checkBook = dao.checkBookDao(isbn);//아이디 존재 여부체크(1이면 이미 존재, 0이면 존재 안함)
-		if(checkBook==0) {
-		dao.registerDao(isbn, title, author, publisher, pdate, image, price, description);
+		int checkBook = dao.checkBookDao(isbn);//도서대여 여부체크(1이면 도서가 존재, 0이면 도서가 존재하지 않음)
 		
+		if(uploadFiles.isEmpty() && checkBook==0) { //파일 첨부 여부를 판단(true or false)'
+			dao.registerDao(isbn, title, author, publisher, pdate, image, price, description);
+	
+		}else if(checkBook==0){
+			if(image == null) {
+				dao.registerDao(isbn, title, author, publisher, pdate, image, price, description);
+			}else
+				dao.registerDao(isbn, title, author, publisher, pdate, image, price, description);
+			ArrayList<BookDto> bdto = dao.bookListDao();
+			
+			String orifname = uploadFiles.getOriginalFilename();//원래 파일의 이름 가져오기
+			String fextension = FilenameUtils.getExtension(orifname).toLowerCase();//확장자 가져오기(소문자로 변환)
+			String furl = "D:\\springboot_workspace\\BookManagementProject\\src\\main\\resources\\static\\uploadfiles\\";
+			String fname;//변경된 파일의 이름(서버에 저장되는 파일의 이름)
+			String url = "D:/springboot_workspace/BookManagementProject/src/main/resources/static/uploadfiles/";
+			File destinationFile;//java.io의 파일관련 클래스
+			
+			do {
+				fname = RandomStringUtils.randomAlphanumeric(32) + "." + fextension;
+				//영문대소문자와 숫자가 혼합된 랜덤 32자의 파일이름을 생성한 후 확장자 연결하여 서버에 저장될 파일의 이름 생성			
+				destinationFile = new File(furl+fname);
+				}while(destinationFile.exists());//같은 이름의 파일이 저장소에 존재하면 true 출력
+				
+				destinationFile.getParentFile().mkdir();
+				uploadFiles.transferTo(destinationFile);
+				
+				dao.fileInsertDao(isbn, fname, orifname, furl, fextension);
+				model.addAttribute("fname", fname);
+				model.addAttribute("fextension", fextension);
+				
+		}
+
 		model.addAttribute("isbn", isbn);
 		model.addAttribute("title", title);
 		model.addAttribute("author", author);
@@ -677,20 +772,38 @@ public class BookController {
 		model.addAttribute("image", image);
 		model.addAttribute("price", price);
 		model.addAttribute("description", description);
+		
+		
 			
-		}
-		model.addAttribute("checkBook", checkBook);//checkId값이 1(이미 존재) 또는 0(존재 안함)이 전송
+		
+		model.addAttribute("checkBook", checkBook);//checkBook값이 1(존재) 또는 0(없음)이 전송
 		
 		return "manager/book_registerOk";
 	}
 	@RequestMapping(value="/manager/mngBook_list")
-	public String mngBook_list(Model model) {
+	public String mngBook_list(HttpServletRequest request, Model model) {
+		String searchKeyword = request.getParameter("searchKeyword");
+		String searchOption = request.getParameter("searchOption");
 		
 		BookDao dao = sqlSession.getMapper(BookDao.class);
+		ArrayList<BookDto> dtos = null;
 		
-		ArrayList<BookDto> dtos = dao.bookListDao();
+		if(searchKeyword == null) {
+			dtos = dao.bookListDao();
+		}else if(searchOption.equals("isbn")) {
+			dtos = dao.isbnSearchlist(searchKeyword);
+		} else if(searchOption.equals("title")) {
+			dtos = dao.titleSearchlist(searchKeyword);
+		} else if(searchOption.equals("author")) {
+			dtos = dao.authorSearchlist(searchKeyword);
+		} else if(searchOption.equals("publisher")) {
+			dtos = dao.publisherSearchlist(searchKeyword);
+		}
+		
+		int listCount = dtos.size();//게시판 글목록의 글 개수
 		
 		model.addAttribute("bookList", dtos);
+		model.addAttribute("listCount", listCount);
 		
 		return "manager/mngBook_list";
 	}
@@ -702,8 +815,10 @@ public class BookController {
 		BookDao dao = sqlSession.getMapper(BookDao.class);
 		
 		BookDto bookDto = dao.bookViewDao(isbn);
+		BookFileDto fbDto = dao.GetFileInfoDao(isbn);
 		
 		model.addAttribute("bookDto", bookDto);
+		model.addAttribute("fbDto", fbDto);
 		
 		return "manager/mngBook_view";
 	}

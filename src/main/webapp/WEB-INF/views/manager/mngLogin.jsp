@@ -13,11 +13,7 @@
 	<%@ include file="../include/mngHeader.jsp" %>
 	<center>
 	<table width="70%" cellspacing="0" border="0" cellpadding="20">
-		<tr >
-			<td align="center">
-				<span class="index_title01">DEVELOPER JEONGHOON'S PROFILE</span>
-			</td>
-		</tr>
+		
 		<tr>
 			<td align="center">
 				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
@@ -26,33 +22,26 @@
 		<tr>
 			<table width="70%" cellspacing="0" border="0" cellpadding="10">
 				<tr height="534">
-					<td bgcolor="#B3B3B3" align="center">
+					<td bgcolor="C7D3ED" align="center">
 						<table>
 							<form action="mngLoginOk" method="post" name="login_form">
 							<span class="login_title"><h1>관리자 로그인</h1></span>
 								<tr>
 									<td><span class="content_text">아이디  &nbsp;</span></td>
-									<td><input  class="input_box" type="text" name="mngid"></td>
+									<td><input  class="input_box" type="text" name="mngid" placeholder="아이디를 입력해주세요"></td>
 									<td rowspan="2"><input class="button_log" type="button" value="로그인" onclick="mngLoginCheck()"></td>
 									
 								</tr>
 								<tr>
 									<td><span class="content_text">비밀번호 &nbsp;</span></td>
-									<td><input  class="input_box" type="password" name="mngpw"></td>
-								</tr>
-								<tr>
-									<td colspan="3" align="right">
-										<a href="#">아이디/비밀번호 찾기</a> |
-										<a href="mngJoin">회원가입</a>
-									</td>
-									
+									<td><input  class="input_box" type="password" name="mngpw" placeholder="비밀번호를 입력해주세요"></td>
 								</tr>
 								<tr height="100">
 									<td></td>
 								</tr>
 								<tr >
 									<td valign="bottom" colspan="3" align="center">
-										<input class="button" type="button" value="홈으로" onclick="location.href='../member/index'">
+										<input class="button" type="button" value="홈으로" onclick="location.href='../index'">
 									</td>
 								</tr>
 							</form>

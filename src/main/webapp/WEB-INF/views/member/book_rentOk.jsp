@@ -13,11 +13,7 @@
 	<%@ include file="../include/header.jsp" %>
 	<center>
 	<table width="70%" cellspacing="0" border="0" cellpadding="20">
-		<tr >
-			<td align="center">
-				<span class="index_title01">DEVELOPER JEONGHOON'S PROFILE</span>
-			</td>
-		</tr>
+		
 		<tr>
 			<td align="center">
 				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
@@ -26,7 +22,7 @@
 		<tr>
 			<table width="70%" cellspacing="0" border="0" cellpadding="10">
 				<tr height="534">
-					<td bgcolor="6799FF" align="center">
+					<td bgcolor="C7D3ED" align="center">
 						<table>
 							<form  method="post" name="rent_form"><br><br>
 								<span class="content_text">도서대여가 정상적으로 처리되었습니다.</span><br><br><br><br>
