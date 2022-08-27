@@ -28,31 +28,25 @@
 				<tr height="534">
 					<td bgcolor="#B3B3B3" align="center">
 						<table>
-							<form action="loginOk" method="post" name="login_form">
-							<span class="login_title"><h1>일반회원 로그인</h1></span>
+							<form action="search_idOk" method="post" name="search_form">
+							<span class="login_title"><h1>아이디 찾기</h1>(<span class="login_title">이름과 비밀번호를 입력해주세요.</span>)</span><br><br><br><br>
 								<tr>
-									<td><span class="content_text">아이디  &nbsp;</span></td>
-									<td><input  class="input_box" type="text" name="memid"></td>
-								<td rowspan="2"><input class="button_log" type="button" value="로그인" onclick="loginCheck()"></td>
+									<td><span class="content_text">이름  &nbsp;</span></td>
+									<td><input  class="input_box" type="text" name="memname"></td>
+								<td rowspan="2"><input class="button_log" type="button" value="확인" onclick="schCheckId()"></td>
 									
 								</tr>
 								<tr>
 									<td><span class="content_text">비밀번호 &nbsp;</span></td>
 									<td><input  class="input_box" type="password" name="mempw"></td>
 								</tr>
-								<tr>
-									<td colspan="3" align="right">
-										<a href="select_sch">아이디/비밀번호 찾기</a> |
-										<a href="join">회원가입</a>
-									</td>
-									
-								</tr>
+								
 								<tr height="100">
 									<td></td>
 								</tr>
 								<tr >
 									<td valign="bottom" colspan="3" align="center">
-										<input class="button" type="button" value="홈으로" onclick="location.href='index'">
+										<input class="button" type="button" value="뒤로" onclick="location.href='select_sch'">
 									</td>
 								</tr>
 							</form>

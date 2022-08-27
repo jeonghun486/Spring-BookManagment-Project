@@ -62,6 +62,18 @@ public class BookController {
 	public String join() {
 		return "member/join";
 	}
+	@RequestMapping(value="/select_sch")
+	public String select_sch() {
+		return "member/select_sch";
+	}
+	@RequestMapping(value="/search_id")
+	public String search_id() {
+		return "member/search_id";
+	}
+	@RequestMapping(value="/search_pw")
+	public String search_pw() {
+		return "member/search_pw";
+	}
 	
 	@RequestMapping(value="/board")
 	public String board(HttpServletRequest request, Model model) {
@@ -166,6 +178,54 @@ public class BookController {
 		
 		return "member/loginOk";
 	}
+	@RequestMapping(value = "/search_idOk", method=RequestMethod.POST)
+	public String search_idOk(HttpServletRequest request, Model model) {
+		
+		String memname = request.getParameter("memname");
+		String mempw = request.getParameter("mempw");
+		
+		MemberDao dao = sqlSession.getMapper(MemberDao.class);
+		
+		int checkName = dao.checkNameDao(memname);
+		int checkNamePw = dao.checkNamePwDao(memname, mempw);
+		
+		model.addAttribute("checkName", checkName);
+		model.addAttribute("checkNamePw", checkNamePw);
+		
+		if(checkNamePw >= 1) {
+			
+			MemberDto memberDto = dao.searchIdDao(memname, mempw);// 로그인한 아이디의 모든 정보를 dto로 변환
+			
+			model.addAttribute("memberDto", memberDto);
+		}
+		
+		return "member/search_idOk";
+	}
+	@RequestMapping(value = "/search_pwOk", method=RequestMethod.POST)
+	public String search_pwOk(HttpServletRequest request, Model model) {
+		
+		String memid = request.getParameter("memid");
+		String memname = request.getParameter("memname");
+		
+		MemberDao dao = sqlSession.getMapper(MemberDao.class);
+		
+		int checkid = dao.checkIdDao(memid);
+		int checkname = dao.checkNameDao(memname);
+		int checkidname = dao.checkIdNameDao(memid, memname);
+		
+		model.addAttribute("checkId", checkid);
+		model.addAttribute("checkName", checkname);
+		model.addAttribute("checkIdName", checkidname);
+		
+		if(checkidname >= 1) {
+			
+			MemberDto memberDto = dao.searchPwDao(memid, memname);// 로그인한 아이디의 모든 정보를 dto로 변환
+			
+			model.addAttribute("memberDto", memberDto);
+		}
+		
+		return "member/search_pwOk";
+	}
 	
 	@RequestMapping(value = "/logout")
 	public String logout(HttpSession session) {
@@ -214,6 +274,7 @@ public class BookController {
 		
 		return "member/infoModifyOk";
 	}
+	
 	@RequestMapping(value="/delete")
 	public String delete(HttpServletRequest request, Model model) {
 		MemberDao dao = sqlSession.getMapper(MemberDao.class);
