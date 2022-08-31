@@ -15,18 +15,12 @@ span.index_title02{
 }
 
 span.index_skill01{
-	font-size:60px;
+	font-size:30px;
 	color:#ffffff;
 	font-family: Arial;
 	font-weight:bold;
 }
 
-span.index_skill02{
-	font-size:40px;
-	color:#071367;
-	font-family: Arial;
-	font-weight:bold;
-}
 span.login_title{
 	font-size:18px;
 	color:#090f86;
@@ -36,6 +30,33 @@ span.login_title{
 span.rent_title{
 	font-size:40px;
 	color:#ffffff;
+	font-family: Arial;
+	font-weight:bold;
+}
+span.rpy_title1{
+	font-size:15px;
+	color:#090f86;
+	font-family: Arial;
+	font-weight:bold;
+}
+span.rpy_title2{
+	font-size:21px;
+	color:#090f86;
+	font-family: Arial;
+	font-weight:bold;
+}
+span.book_title{
+	font-size:15px;
+	color:#0dbee3;
+	font-family: Arial;
+	font-weight:bold;
+}
+a{
+	text-decoration:none;
+}
+span.book_title2{
+	font-size:40px;
+	color:#1a64d5;
 	font-family: Arial;
 	font-weight:bold;
 }

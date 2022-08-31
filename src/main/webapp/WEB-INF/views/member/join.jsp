@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/titletext.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/content.css">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/join.js"></script>
-<title>** Profile Web</title>
+<title>회원 가입</title>
 </head>
 <body>
 	<%@ include file="../include/header.jsp" %>
@@ -16,7 +16,7 @@
 		
 		<tr>
 			<td align="center">
-				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
+				<span class="index_title02"></span>
 			</td>
 		</tr>
 		<tr>

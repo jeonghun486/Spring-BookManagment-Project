@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/content.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/qlist.css">
 	
-<title>** Profile Web</title>
+<title>도서목록</title>
 </head>
 <body>
 	<%@ include file="../include/mngHeader.jsp" %>
@@ -19,7 +19,7 @@
 		
 		<tr>
 			<td align="center">
-				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
+				<span class="index_title02"></span>
 			</td>
 		</tr>
 		<tr>

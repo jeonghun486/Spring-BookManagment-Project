@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.hoon.bookmanagement.dto.BoardDto;
 import com.hoon.bookmanagement.dto.MemberDto;
+import com.hoon.bookmanagement.dto.ReplyDto;
 
 public interface BoardDao {
 	
@@ -13,6 +14,8 @@ public interface BoardDao {
 	public BoardDto contentViewDao(String bmnum); // 게시판 글 내용 가져오기 
 	public void deleteDao (String bmnum); // 게시판 글 삭제
 	public void qmodifyDao(String bmid, String bmtitle, String bmcontent, String bmnum); // 게시판 글 내용 수정하기
-		
-	
+	public void rbwriteDao(int boardnum, String rbid, String rbcontent);
+	public ArrayList<ReplyDto> rblistDao(int fbnum);//댓글이 달린원글의 게시판 번호로 검색하여 모든 댓글 리스트를 반환
+	public ReplyDto replyViewDao(int rbnum);
+	public void replyDeleteDao(int rbnum);
 }

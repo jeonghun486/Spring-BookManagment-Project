@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/titletext.css">
 	
-<title>** Profile Web</title>
+<title>홈 화면</title>
 </head>
 <body>
 	<%@ include file="../include/header.jsp" %>
@@ -15,30 +15,52 @@
 		
 		<tr>
 			<td align="center">
-				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
+				<span class="index_title02"></span>
 			</td>
 		</tr>
 		<tr>
-			<table width="60%" cellspacing="0" border="0" cellpadding="10">
+			<table width="60%" cellspacing="0" border="0" cellpadding="10" >
+			
 				<tr>
-					<td bgcolor=C4DEFF ><span class="index_skill01">J</span><span class="index_skill02">AVA</span></td>
-					<td align="center" rowspan="6" bgcolor=6799FF ><img src="${pageContext.request.contextPath }/resources/img/Library.jfif" width="99%" height="500"></td>
+					<td width="10%"></td>
+					<td bgcolor=B2CCFF align="center" >
+						<a href="best_books" target="if_book">
+							<span class="index_skill01">베스트도서</span>
+						</a>
+					</td>
+					<td rowspan="4" width="50%" align="">
+						<iframe src="${pageContext.request.contextPath }/resources/img/Library.jpg" width="630" height="500" name="if_book" scrolling="no"></iframe>
+					</td>
+					<td width="10%"></td>
 				</tr>
 				<tr>
-					<td bgcolor="C4DEFF"><span class="index_skill01">J</span><span class="index_skill02">SP</span></td>
+				<td width="10%"></td>
+					<td bgcolor="B2CCFF" align="center">
+						<a href="new_books" target="if_book">
+							<span class="index_skill01">신간도서</span>
+						</a>
+					</td>
+					<td width="10%"></td>
 				</tr>
 				<tr>
-					<td bgcolor="C4DEFF"><span class="index_skill01">S</span><span class="index_skill02">PRING</span></td>
+				<td width="10%"></td>
+					<td bgcolor="B2CCFF" align="center">
+						<a href="domestic_books" target="if_book">
+							<span class="index_skill01">국내도서</span>
+						</a>
+					</td>
+					<td width="10%"></td>
 				</tr>
 				<tr>
-					<td bgcolor="C4DEFF"><span class="index_skill01">J</span><span class="index_skill02">AVASCRIPT</span></td>
+				<td width="10%"></td>
+					<td bgcolor="B2CCFF" align="center">
+						<a href="foreign_books" target="if_book">
+							<span class="index_skill01">외국도서</span>
+						</a>
+					</td>
+					<td width="10%"></td>
 				</tr>
-				<tr>
-					<td bgcolor="C4DEFF"><span class="index_skill01">H</span><span class="index_skill02">TML5</span></td>
-				</tr>
-				<tr>
-					<td bgcolor="C4DEFF"><span class="index_skill01">D</span><span class="index_skill02">ATABASE</span></td>
-				</tr>
+				
 			</table>
 		</tr>
 	</table>

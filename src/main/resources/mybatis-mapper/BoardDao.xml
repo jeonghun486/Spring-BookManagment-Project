@@ -25,4 +25,19 @@
 		update book_board set bmid=#{param1}, bmtitle=#{param2}, bmcontent=#{param3} where bmnum=#{param4}
 	</update>
 	
+	<!-- 댓글 -->
+	<insert id="rbwriteDao">
+		insert into book_replyboard(rbnum, boardnum, rbid, rbcontent) values(replyboard_seq.nextval, #{param1},#{param2},#{param3})
+	</insert>
+	
+	<select id="rblistDao" resultType="com.hoon.bookmanagement.dto.ReplyDto">
+		select * from book_replyboard where boardnum = #{param1} order by rbnum asc
+	</select>
+	<select id="replyViewDao" resultType="com.hoon.bookmanagement.dto.ReplyDto">
+		select * from book_replyboard where rbnum=#{param1}
+	</select>
+	<delete id="replyDeleteDao">
+		delete from book_replyboard where rbnum=#{param1}
+	</delete>
+	
 	</mapper>

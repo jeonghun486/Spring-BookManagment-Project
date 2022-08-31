@@ -17,4 +17,13 @@
 	<update id="returnCheckDao">
 		update book_rent set rent=#{param1}, rdate=#{param2} where risbn=#{param3}
 	</update>
+	<delete id="rentCancelDao">
+		delete from book_rent where risbn=#{param1}
+	</delete>
+	<select id="extensionDao" resultType="com.hoon.bookmanagement.dto.RentDto">
+		select * from book_rent where risbn = #{param1}
+	</select>
+	<update id="dateExtensionDao">
+		update book_rent set rtrndate=#{param1} where risbn=#{param2}
+	</update>
 </mapper>

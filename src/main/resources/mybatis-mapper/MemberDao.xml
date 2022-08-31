@@ -31,4 +31,26 @@
 		delete from book_member where memid=#{param1} and mempw=#{param2}
 	</delete>
 	
+	<!-- 아이디 찾기  -->
+	<select id="checkNameDao" resultType="int">
+		select count(*) from book_member where memname=#{param1}
+	</select>
+	
+	<select id="checkNamePwDao" resultType="int">
+		select count(*) from book_member where memname=#{param1} and mempw=#{param2}
+	</select>
+	
+	<select id="searchIdDao" resultType="com.hoon.bookmanagement.dto.MemberDto">
+		select * from book_member where memname=#{param1} and mempw=#{param2}
+	</select>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="checkIdNameDao" resultType="int">
+		select count(*) from book_member where memid=#{param1} and memname=#{param2}
+	</select>
+	
+	<select id="searchPwDao" resultType="com.hoon.bookmanagement.dto.MemberDto">
+		select * from book_member where memid=#{param1} and memname=#{param2}
+	</select>
+	
 </mapper>

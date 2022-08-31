@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/titletext.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/content.css">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/update.js"></script>
-<title>** Profile Web</title>
+<title>게시글 자세히 보기</title>
 </head>
 <body>
 	<%@ include file="../include/header.jsp" %>
@@ -17,35 +17,40 @@
 		
 		<tr>
 			<td align="center">
-				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
+				<span class="index_title02"></span>
 			</td>
 		</tr>
 		<tr>
 			<table width="70%" cellspacing="0" border="0" cellpadding="10">
-				<tr height="534">
-					<td bgcolor="C7D3ED" align="center">
-						<table>
+			
+				<tr height="1000">
+					<td class="board_form">
+					<hr color="10459e" width="80%">
+						<center><span class="content_text">고객문의 게시판</span></center>
+						<hr color="10459e" width="80%"><br><br>
+						<table align="center" width="80%">
 							<form action="board_modify" method="post" name="board_form">
-								<input type = "hidden" name="bmnum" value="${contentDto.bmnum }">
+								<input type = "hidden" name="bmnum" value="${bmView.bmnum }">
 								<tr>
 									<td><span class="content_text">작성자 : &nbsp;</span></td>
-									<td><input  class="input_box" type="text" name="bmid" value="${contentDto.bmid }" readonly></td>
+									<td><input  class="input_box" type="text" name="bmid" value="${bmView.bmid }" readonly></td>
 								</tr>
 								<tr>
 									<td><span class="content_text">작성날짜 : &nbsp;</span></td>
-									<td><input  class="input_box" type="text" name="bmdate" value="${contentDto.bmdate }" readonly></td>
+									<td><input  class="input_box" type="text" name="bmdate" value="${bmView.bmdate }" readonly></td>
 								</tr>
 								<tr>
 									<td><span class="content_text">제목 : &nbsp;</span></td>
-									<td><input  class="input_title" type="text" name="bmtitle" value="${contentDto.bmtitle }"></td>
+									<td><input  class="input_title" type="text" name="bmtitle" value="${bmView.bmtitle }"></td>
 								</tr>
 								
 								<tr>
 									<td valign="middle"><span class="content_text">내용 : &nbsp;</span></td>
 									<td>
-										<textarea class="content" rows="5" cols="25" name="bmcontent">${contentDto.bmcontent }</textarea>
+										<textarea class="content" rows="5" cols="25" name="bmcontent">${bmView.bmcontent }</textarea>
 									</td>
 								</tr>
+									
 								<tr>
 									<td colspan="3" align="right">
 										<% 
@@ -54,10 +59,10 @@
 											if (smemid == null){
 												smemid="Guest";
 											}
-											if((smemid != null) && (smemid.equals(bmid)) || (smemid.equals("admin"))){
+											if((smemid != null) && (smemid.equals(bmid)) || (smemid.equals("manage"))){
 										%>
 										<input class="button" type="button" value="글 수정" onclick="boardCheck()">
-										<input class="button" type="button" value="글 삭제" onclick="location.href='board_delete?bmnum='+${contentDto.bmnum}">
+										<input class="button" type="button" value="글 삭제" onclick="location.href='board_delete?bmnum='+${bmView.bmnum}">
 										<%
 											}
 										%>
@@ -65,7 +70,54 @@
 									</td>
 								</tr>
 							</form>
+						</table><br><br>
+						<hr color="10459e" width="80%">
+						<center><span class="content_text" >댓글 내용</span></center>
+						<hr color="10459e" width="80%"><br><br>
+						<!-- 해당 글의 댓글 리스트 출력 -->
+						
+					  <table border="1" cellpading="0" cellspacing="0" width="80%" align="center">
+					     <c:forEach items="${rblist }" var="dto">
+					     	<table class="rpy_box" align="center">
+					     	<input type="hidden" name="rbnum" value="${dto.rbnum }">
+					        <tr>
+					           <td width="20%">
+					             댓글쓴이 | ${dto.rbid }
+					           </td>
+					           <td align="right">
+					             댓글 게시일 | ${dto.rbdate}&nbsp;&nbsp;
+										
+					             <input type="button" name="rpy_delete" value="X" onclick="location.href='rpy_delete?rbnum='+${dto.rbnum }">
+					             
+					      </td>
+					        </tr>
+					        <tr>
+					           <td colspan="2">
+					           	<hr color=4044ee>
+					             댓글내용 | ${dto.rbcontent }
+					           </td>
+					        </tr>
+					        </table>
+					     </c:forEach><br><br>
+					     <table align="center">
+							<form action="board_reply" name="reply_form">
+							<input type = "hidden" name="bmnum" value="${bmView.bmnum }">
+								<tr>
+									<td>
+										<span class="rpy_title1">댓글 작성</span><br>
+										<span class="rpy_title2">Comment</span>
+									</td>
+									<td>
+										<textarea class="rbcontent" name ="rbcontent"></textarea>
+									</td>
+									<td>
+										<input type="button" class="btn_reply" value="댓글쓰기" onclick="chk_reply()">
+									</td>
+								</tr>
+							</form>
 						</table>
+					  </table><br><br>
+						
 					</td>
 				</tr>
 			</table>

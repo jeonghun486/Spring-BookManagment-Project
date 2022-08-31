@@ -79,3 +79,11 @@
 	
 	document.book_form.submit();
 }
+function chk_reply(){
+	if(document.reply_form.rbcontent.value.length ==0){
+		alert("댓글 내용을 적어주세요");
+		reply_form.rbcontent.focus();
+		return;
+	}
+	document.reply_form.submit();
+}

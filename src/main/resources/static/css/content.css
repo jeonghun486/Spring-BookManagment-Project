@@ -20,7 +20,7 @@ span.info_text{
 
 input.input_box{
 	
-	border: 1px solid #ffffff;
+	border: 3px solid #4375DB;
 	background-color: #ffffff;
 	width: 200px;
 	padding:5px;
@@ -31,7 +31,7 @@ input.input_box{
 }
 input.input_title{
 	
-	border: 1px solid #ffffff;
+	border: 3px solid #4375DB;
 	background-color: #ffffff;
 	width: 600px;
 	padding:5px;
@@ -43,9 +43,9 @@ input.input_title{
 
 textarea.content{
 	
-	border: 1px solid #ffffff;
+	border: 3px solid #4375DB;
 	background-color: #ffffff;
-	width: 600px;
+	width: 96%;
 	height: 300px;
 	padding:5px;
 	margin:10px;
@@ -233,5 +233,41 @@ input.btn_returnN{
 	font-family: Arial;
 	font-size: 12px;
 	color: #0000ff;
+	border-radius: 12px;
+}
+textarea.rbcontent{
+	width:550px;
+	height:100px;
+}
+input.btn_reply{
+	border: 2px solid #10459e;
+	background-color: #1a64d5;
+	width: 100px;
+	height: 100px;
+	padding:5px;
+	font-family: Arial;
+	font-size: 18px;
+	color: #ffffff;
+}
+input.btn_reply:hover{
+	background-color:#b4cef5;
+	color:#10459e;
+}
+table.rpy_box{
+	width:80%;
+	border: 5px double #4044ee;
+	background-color: #d8dafc;
+	padding:5px;
+	font-family: Arial;
+	font-size: 12px;
+	color: #000000;
+	border-radius: 12px;
+	
+}
+td.board_form{
+	width:80%;
+	padding:5px;
+	background-color: #c7daf8;
+	border: 5px solid #4044ee;
 	border-radius: 12px;
 }

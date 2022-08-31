@@ -24,6 +24,7 @@ public class RentDto {
 	private int rent;
 	private String rdate;
 	
+	
 	public RentDto() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -48,6 +49,7 @@ public class RentDto {
 		this.rimage = rimage;
 		this.rent = rent;
 		this.rdate = rdate;
+		
 	}
 
 	public String getRid() {
@@ -169,6 +171,7 @@ public class RentDto {
 	public void setRdate(String rdate) {
 		this.rdate = rdate;
 	}
+
 
 	
 }

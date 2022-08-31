@@ -20,7 +20,7 @@
 		
 		<tr>
 			<td align="center">
-				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
+				<span class="index_title02"></span>
 			</td>
 		</tr>
 		<tr>

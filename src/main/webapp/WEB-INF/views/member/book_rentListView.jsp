@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/titletext.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/content.css">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/update.js"></script>
-<title>** Profile Web</title>
+<title>대여도서 목록</title>
 </head>
 <body>
 	<%@ include file="../include/header.jsp" %>
@@ -17,7 +17,7 @@
 		
 		<tr>
 			<td align="center">
-				<span class="index_title02">I'm Jeonghun Ju, a developer who wants a development job. Please call me back</span>
+				<span class="index_title02"></span>
 			</td>
 		</tr>
 		<tr>
@@ -72,8 +72,9 @@
 								
 								<tr>
 									<td colspan="3" align="center">
-										
 											<input class="btn_rent" type="button" value="뒤로가기" onclick="location.href='book_rentList'">&nbsp;
+											<input class="btn_rent" type="button" value="대여기간 연장" onclick="location.href='date_extension?isbn='+${bookDto.isbn}">&nbsp;
+											<input class="btn_rent" type="button" value="대여취소" onclick="location.href='rent_cancel?isbn='+${bookDto.isbn}">&nbsp;
 									</td>
 								</tr>
 							</form>

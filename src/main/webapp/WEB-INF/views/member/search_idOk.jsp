@@ -8,13 +8,17 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/titletext.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/content.css">
 	
-<title>로그인 완료</title>
+<title>아이디 찾기 완료</title>
 </head>
 <body>
 	<%@ include file="../include/header.jsp" %>
 	<center>
 	<table width="70%" cellspacing="0" border="0" cellpadding="20">
-		
+		<tr >
+			<td align="center">
+				<span class="index_title01"></span>
+			</td>
+		</tr>
 		<tr>
 			<td align="center">
 				<span class="index_title02"></span>
@@ -25,13 +29,13 @@
 				<tr height="534">
 					<td bgcolor="C7D3ED" align="center">
 					<c:choose>
-						<c:when test="${checkId=='0' }">
+						<c:when test="${checkName=='0' }">
 							<script type="text/javascript">
-								alert("입력하신 아이디는 존재하지 않는 아이디 입니다. 다시 확인해주세요.");
+								alert("입력하신 이름은 존재하지 않는 이름 입니다. 다시 확인해주세요.");
 								history.go(-1);
 							</script>
 						</c:when>
-						<c:when test="${checkIdPw=='0' }">
+						<c:when test="${checkNamePw=='0' }">
 							<script type="text/javascript">
 								alert("입력하신 비밀번호가 맞지 않습니다. 다시 확인해주세요.");
 								history.go(-1);
@@ -39,16 +43,10 @@
 						</c:when>
 						<c:otherwise>
 							<span class="content_text" >
-								${memid} 님 안녕하세요.<br>
-								아이디 ${memname }로 로그인 하셨습니다.<br>
+								${memberDto.memname}님의 아이디는 ${memberDto.memid} 입니다.
 							</span>
 						</c:otherwise>
 					</c:choose>
-					</td>
-				</tr>
-				<tr >
-					<td bgcolor="C7D3ED" align="center">
-						<input class="btn_rent" type="button" value="확인" onclick="location.href='index'">
 					</td>
 				</tr>
 			</table>
