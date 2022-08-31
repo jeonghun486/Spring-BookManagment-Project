@@ -52,23 +52,9 @@
 								
 								<tr>
 									<td colspan="3" align="right">
-										<% 
-											String smngid = (String) session.getAttribute("smngid");
-											String bmid = request.getAttribute("boardID").toString();
-											if (smngid == null){
-												smngid="Guest";
-											}
-											if((smngid != null) && (smngid.equals(bmid)) || (smngid.equals("manager"))){
-										%>
-											<input class="button" type="button" value="글 수정" onclick="mngBoardCheck()">
+										
 											<input class="button" type="button" value="글 삭제" onclick="location.href='mngBoard_delete?bmnum='+${bmView.bmnum}">
-										<%
-											}else if((smngid != null || (smngid.equals("manaager")))){
-										%>
-											<input class="button" type="button" value="글 삭제" onclick="location.href='mngBoard_delete?bmnum='+${bmView.bmnum}">
-										<%
-											}
-										%>
+										
 											<input class="button" type="button" value="글 목록" onclick="location.href='mngBoard_list'">&nbsp;
 									</td>
 								</tr>
