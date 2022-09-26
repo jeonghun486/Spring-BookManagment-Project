@@ -30,18 +30,19 @@
 						<table width="90%" border="0" cellspacing="0" cellpadding="10">
 							
 							<tr>
-								<td class="board_title" >No.</td>
-								<td class="board_title" width="15%">작성자</td>
-								<td class="board_title" width="20%">제목</td>
-								<td class="board_title" width="40%">내용</td>
-								<td class="board_title" width="20%">작성날짜</td>
+								<td class="board_title" width="5%">No.</td>
+								<td class="board_title" width="10%">작성자</td>
+								<td class="board_title" width="15%">제목</td>
+								<td class="board_title" width="35%">내용</td>
+								<td class="board_title" width="15%">작성날짜</td>
+								<td class="board_title" width="7%">조회수</td>
 							</tr>
 							<c:forEach items="${list }" var="dto">
 							<tr>
 								<td class="board_content">${dto.bmnum }</td>
 								<td class="board_content">${dto.bmid }</td>
 								<td class="board_content">${dto.bmtitle }</td>
-								<td class="board_content" style="text-align:left;">
+								<td class="board_content" style="text-align:center;">
 									<a href="board_view?bmnum=${dto.bmnum}" style="color:#0a367a">
 										<c:choose>
 											<c:when test="${fn:length(dto.bmcontent) > 25 }">
@@ -56,10 +57,11 @@
 								<td class="board_content">
 									<c:out value="${fn:substring(dto.bmdate,0,10)}"></c:out>
 								</td> 
+								<td class="board_content">${dto.bmhit }</td>
 							</tr>
 							</c:forEach>
 							<tr>
-								<td colspan="5" align="right">
+								<td colspan="6" align="right">
 									<input class="button" type="button" value="글쓰기" onclick="location.href='board'">
 								</td>
 							</tr>

@@ -2,11 +2,14 @@ package com.hoon.bookmanagement;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import java.sql.Time;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,12 +30,14 @@ import com.hoon.bookmanagement.dao.BookDao;
 import com.hoon.bookmanagement.dao.ManagerDao;
 import com.hoon.bookmanagement.dao.MemberDao;
 import com.hoon.bookmanagement.dao.RentDao;
+import com.hoon.bookmanagement.dao.ReturnDao;
 import com.hoon.bookmanagement.dto.BoardDto;
 import com.hoon.bookmanagement.dto.BookDto;
 import com.hoon.bookmanagement.dto.BookFileDto;
 import com.hoon.bookmanagement.dto.ManagerDto;
 import com.hoon.bookmanagement.dto.MemberDto;
 import com.hoon.bookmanagement.dto.RentDto;
+import com.hoon.bookmanagement.dto.ReplyDto;
 
 
 @Controller
@@ -45,18 +50,17 @@ public class BookController {
 	
 	@RequestMapping(value="/")
 	public String home() {
+
 		return "member/index";
 	}
 	@RequestMapping(value="/index")
 	public String home2() {
 		return "member/index";
-	}
-	
+	}	
 	@RequestMapping(value="/member/index")
 	public String index() {
 		return "member/index";
-	}
-	
+	}	
 	@RequestMapping(value="/login")
 	public String login() {
 		return "member/login";
@@ -100,7 +104,10 @@ public class BookController {
 	public String domestic_books() {
 		return "member/domestic_books";
 	}
-	
+	@RequestMapping(value="/book_map")
+	public String book_map() {
+		return "member/book_map";
+	}
 	
 	@RequestMapping(value="/board")
 	public String board(HttpServletRequest request, Model model) {
@@ -141,16 +148,22 @@ public class BookController {
 		String memid = request.getParameter("memid");
 		String mempw = request.getParameter("mempw");
 		String memname = request.getParameter("memname");
+		String mempost = request.getParameter("mempost");
+		String memdoro = request.getParameter("memdoro");
 		String memaddr = request.getParameter("memaddr");
-		String memtel = request.getParameter("memtel");
+		String slt_tel = request.getParameter("slt_tel");
+		String memtel1 = request.getParameter("memtel1");
+		String memtel2 = request.getParameter("memtel2");
+		String memtel = slt_tel+"-"+memtel1+"-"+memtel2;
 		String mememail = request.getParameter("mememail");
+		String memdomain = request.getParameter("memdomain");
 		
 		MemberDao dao = sqlSession.getMapper(MemberDao.class);
 		
 		int checkId = dao.checkIdDao(memid);//아이디 존재 여부체크(1이면 이미 존재, 0이면 존재 안함)
 		
 		if(checkId == 0) {
-			dao.joinDao(memid, mempw, memname, memaddr, memtel, mememail);
+			dao.joinDao(memid, mempw, memname, mempost, memdoro, memaddr, memtel, mememail, memdomain);
 			
 			HttpSession session  = request.getSession();
 			
@@ -164,9 +177,6 @@ public class BookController {
 		
 		return "member/joinOk";
 	}
-	
-	
-	
 	
 	@RequestMapping(value = "/loginOk", method=RequestMethod.POST)
 	public String loginOk(HttpServletRequest request, Model model) {
@@ -205,6 +215,7 @@ public class BookController {
 		
 		return "member/loginOk";
 	}
+	
 	@RequestMapping(value = "/search_idOk", method=RequestMethod.POST)
 	public String search_idOk(HttpServletRequest request, Model model) {
 		
@@ -228,6 +239,7 @@ public class BookController {
 		
 		return "member/search_idOk";
 	}
+	
 	@RequestMapping(value = "/search_pwOk", method=RequestMethod.POST)
 	public String search_pwOk(HttpServletRequest request, Model model) {
 		
@@ -261,6 +273,7 @@ public class BookController {
 		
 		return "member/login";
 	}
+	
 	@RequestMapping(value="/infoModify")
 	public String infoModify(HttpServletRequest request, Model model) {
 		
@@ -283,13 +296,16 @@ public class BookController {
 		String memid = request.getParameter("memid");
 		String mempw = request.getParameter("mempw");
 		String memname = request.getParameter("memname");
+		String mempost = request.getParameter("mempost");
+		String memdoro = request.getParameter("memdoro");
 		String memaddr = request.getParameter("memaddr");
 		String memtel = request.getParameter("memtel");
 		String mememail = request.getParameter("mememail");
+		String memdomain = request.getParameter("memdomain");
 		
 		MemberDao dao = sqlSession.getMapper(MemberDao.class);
 		
-		dao.infoModifyDao(mempw, memname, memaddr, memtel, mememail, memid);
+		dao.infoModifyDao(mempw, memname, mempost ,memdoro, memaddr, memtel, mememail, memdomain, memid);
 		
 		HttpSession session = request.getSession();
 		
@@ -301,6 +317,7 @@ public class BookController {
 		
 		return "member/infoModifyOk";
 	}
+	
 	@RequestMapping(value="/delete")
 	public String delete(HttpServletRequest request, Model model) {
 		MemberDao dao = sqlSession.getMapper(MemberDao.class);
@@ -358,11 +375,65 @@ public class BookController {
 		
 		BoardDto boardDto = dao.contentViewDao(bmnum);
 		
+		HttpSession session = request.getSession();
+		String smemid = (String)session.getAttribute("smemid");
+		String rbid = null;
+		
+		if(smemid == null) {
+			rbid = "Guest";	
+		}else {
+			rbid = smemid;
+		}
+		
+		dao.boardHitDao(bmnum);
+		
 		String bmid = boardDto.getBmid();
 		
+		model.addAttribute("srbid", rbid);
 		model.addAttribute("bmView", boardDto);
 		model.addAttribute("rblist", dao.rblistDao(bmnumint));//댓글리스트 가져와서 반환하기
 		model.addAttribute("boardID", bmid);
+		
+		return "member/board_view";
+	}
+	
+	@RequestMapping(value="/board_reply")
+	public String board_reply(HttpServletRequest request, Model model) {
+		
+		String bmnum = request.getParameter("bmnum");//덧글이 달릴 원 게시글의 고유번호
+		String rbcontent = request.getParameter("rbcontent");//덧글의 내용
+		int bnum = Integer.parseInt(bmnum);
+		
+		HttpSession session = request.getSession();
+		String smemid = (String)session.getAttribute("smemid");
+		String rbid = null;
+		
+		if(smemid == null) {
+			rbid = "Guest";	
+		}else {
+			rbid = smemid;
+		}
+		
+		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
+		
+		bdao.rbwriteDao(bnum, rbid, rbcontent);
+		
+		model.addAttribute("srbid", rbid);
+		model.addAttribute("bmView", bdao.contentViewDao(bmnum));
+		model.addAttribute("rblist", bdao.rblistDao(bnum));
+		model.addAttribute("boardID", bdao.contentViewDao(bmnum).getBmid());
+		
+		
+		return "member/board_view";
+	}
+	
+	@RequestMapping(value="/rpy_delete")
+	public String rpy_delete(HttpServletRequest request, Model model) {
+		String rbnum = request.getParameter("rbnum");
+		
+		BoardDao dao = sqlSession.getMapper(BoardDao.class);
+
+		dao.replyDeleteDao(rbnum);		
 		
 		return "member/board_view";
 	}
@@ -392,43 +463,6 @@ public class BookController {
 		dao.qmodifyDao(bmid, bmtitle, bmcontent, bmnum);
 		
 		return "redirect:board_list";
-	}
-	@RequestMapping(value="/board_reply")
-	public String board_reply(HttpServletRequest request, Model model) {
-		
-		String bmnum = request.getParameter("bmnum");//덧글이 달릴 원 게시글의 고유번호
-		String rbcontent = request.getParameter("rbcontent");//덧글의 내용
-		int bnum = Integer.parseInt(bmnum);
-		
-		HttpSession session = request.getSession();
-		String smemid = (String)session.getAttribute("smemid");
-		String rbid = null;
-		
-		if(smemid == null) {
-			rbid = "GUEST";	
-		}else {
-			rbid = smemid;
-		}
-		
-		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
-		
-		bdao.rbwriteDao(bnum, rbid, rbcontent);
-		
-		model.addAttribute("bmView", bdao.contentViewDao(bmnum));
-		model.addAttribute("rblist", bdao.rblistDao(bnum));
-		model.addAttribute("boardID", bdao.contentViewDao(bmnum).getBmid());
-		
-		return "member/board_view";
-	}
-	@RequestMapping(value="/rpy_delete")
-	public String rpy_delete(HttpServletRequest request, Model model) {
-		String rbnum = request.getParameter("rbnum");
-		int rbnumint = Integer.parseInt(rbnum);
-		BoardDao dao = sqlSession.getMapper(BoardDao.class);
-
-		dao.replyDeleteDao(rbnumint);
-		
-		return "member/board_view";
 	}
 	
 	@RequestMapping(value="/book_list")
@@ -477,6 +511,7 @@ public class BookController {
 		
 		return "member/book_view";
 	}
+	
 	@RequestMapping(value = "/book_rent")
 	public String book_rent(HttpServletRequest request, Model model) {
 		
@@ -502,6 +537,7 @@ public class BookController {
 		
 		return "member/book_rent";
 	}
+	
 	@RequestMapping(value="/book_rentOk", method=RequestMethod.POST)
 	public String book_rentOk(HttpServletRequest request, Model model) {
 		
@@ -520,8 +556,6 @@ public class BookController {
 		String rid = request.getParameter("memid");
 		int amount = 0;
 		
-		
-		
 		RentDao rdao = sqlSession.getMapper(RentDao.class);
 		BookDao bdao = sqlSession.getMapper(BookDao.class);
 		
@@ -531,6 +565,7 @@ public class BookController {
 		
 		return "member/book_rentOk";
 	}
+	
 	@RequestMapping(value="rent_cancel")
 	public String rent_cancel(HttpServletRequest request, Model model) {
 		String risbn = request.getParameter("isbn");
@@ -544,6 +579,7 @@ public class BookController {
 		
 		return "member/rent_cancel";
 	}
+	
 	@RequestMapping(value = "/date_extension")
 	public String date_extension(HttpServletRequest request, Model model) {
 		
@@ -562,6 +598,7 @@ public class BookController {
 		
 		return "member/date_extension";
 	}
+	
 	@RequestMapping(value = "/date_extensionOk")
 	public String date_extensionOk(HttpServletRequest request, Model model) {
 		
@@ -575,40 +612,48 @@ public class BookController {
 	}
 	
 	@RequestMapping(value="/book_rentList")
-	public String rentList(Model model) throws Exception {
+	public String rentList(HttpServletRequest request, Model model) throws Exception {
 		RentDao dao = sqlSession.getMapper(RentDao.class);
 		
-		ArrayList<RentDto> dtos = dao.rentListDao();
+		HttpSession session = request.getSession();
+		String smemid = (String)session.getAttribute("smemid");
+		
+		ArrayList<RentDto> dtos = dao.rentListDao(smemid);
 		
 		model.addAttribute("rentList", dtos);
 		
 		return "member/book_rentList";
 	}
+	
 	@RequestMapping(value = "/book_rentListView")
 	public String book_rentListView(HttpServletRequest request, Model model) {
 		
 		String isbn = request.getParameter("isbn");
 		
-		BookDao dao = sqlSession.getMapper(BookDao.class);
-		
-		BookDto bookDto = dao.bookViewDao(isbn);
-		BookFileDto fbDto = dao.GetFileInfoDao(isbn);
+		BookDao bdao = sqlSession.getMapper(BookDao.class);
+		RentDao rdao = sqlSession.getMapper(RentDao.class);
+		BookDto bookDto = bdao.bookViewDao(isbn);
+		RentDto rentDto = rdao.returnCheckDao(isbn);
+		BookFileDto fbDto = bdao.GetFileInfoDao(isbn);
 		
 		model.addAttribute("bookDto", bookDto);
+		model.addAttribute("rentDto", rentDto);
 		model.addAttribute("fbDto", fbDto);
 		
 		return "member/book_rentListView";
 	}
-	//===========================관리자 컨트롤러===============================
+	//======================================================관리자 컨트롤러==========================================================
 	
 	@RequestMapping(value="/manager/mngIndex")
 	public String mngIndex() {
 		return "manager/mngIndex";
 	}
+	
 	@RequestMapping(value="manager/mngLogin")
 	public String mngLogin() {
 		return "manager/mngLogin";
 	}
+	
 	@RequestMapping(value="/manager/book_register")
 	public String book_register(HttpServletRequest request, Model model) {
 		return "manager/book_register";
@@ -617,7 +662,7 @@ public class BookController {
 	@RequestMapping(value="/manager/rent&return_list")
 	public String mngContact(HttpServletRequest request, Model model) {
 		RentDao dao = sqlSession.getMapper(RentDao.class);
-		ArrayList<RentDto> dtos = dao.rentListDao();
+		ArrayList<RentDto> dtos = dao.mng_RentListDao();
 		
 		Calendar now = Calendar.getInstance();
 		int curYear = now.get(Calendar.YEAR);
@@ -644,14 +689,15 @@ public class BookController {
 		int curDay = now.get(Calendar.DAY_OF_MONTH);
 		
 		String curDate = curYear+"-"+curMonth+"-"+curDay;
-		
+	    
 		int rent = 0;
 		int amount=1;
 		
 		RentDao rdao = sqlSession.getMapper(RentDao.class);
+		ReturnDao rtdao = sqlSession.getMapper(ReturnDao.class);
 		BookDao bdao = sqlSession.getMapper(BookDao.class);
 		
-		rdao.returnCheckDao(rent, curDate, risbn);
+		rdao.rentStatusReviseDao(rent, curDate, risbn);
 		bdao.listCheckDao(amount, risbn);
 		
 		model.addAttribute("risbn", risbn);
@@ -739,78 +785,6 @@ public class BookController {
 		
 		return "manager/mngLogin";
 	}
-	@RequestMapping(value="/manager/mngInfoModify")
-	public String mngInfoModify(HttpServletRequest request, Model model) {
-		
-		ManagerDao dao = sqlSession.getMapper(ManagerDao.class);
-		
-		HttpSession session = request.getSession();
-		
-		String smngid = (String)session.getAttribute("smngid");
-		
-		ManagerDto managerDto = dao.managerInfoDao(smngid);//로그인한 아이디의 모든 정보를 dto로 반환
-		
-		model.addAttribute("managerDto", managerDto);
-		
-		return "manager/mngInfoModify";
-	}
-	
-	@RequestMapping(value="/manager/mngInfoModifyOk")
-	public String mngInfoModifyOk(HttpServletRequest request, Model model) {
-		
-		String mngid = request.getParameter("mngid");
-		String mngpw = request.getParameter("mngpw");
-		String mngname = request.getParameter("mngname");
-		String mngaddr = request.getParameter("mngaddr");
-		String mngtel = request.getParameter("mngtel");
-		String mngemail = request.getParameter("mngemail");
-		
-		ManagerDao dao = sqlSession.getMapper(ManagerDao.class);
-		
-		dao.infoModifyDao(mngpw, mngname, mngaddr, mngtel, mngemail, mngid);
-		
-		HttpSession session = request.getSession();
-		
-		String smngid = (String)session.getAttribute("smngid");
-		
-		ManagerDto managerDto = dao.managerInfoDao(smngid);//정보를 수정한 아이디의 모든 정보를 dto로 반환
-		
-		model.addAttribute("managerDto", managerDto);
-		
-		return "manager/mngInfoModifyOk";
-	}
-	@RequestMapping(value="/manager/mngDelete")
-	public String mngDelete(HttpServletRequest request, Model model) {
-		ManagerDao dao = sqlSession.getMapper(ManagerDao.class);
-		
-		HttpSession session = request.getSession();
-		
-		String smngid = (String)session.getAttribute("smngid");
-		
-		ManagerDto managerDto = dao.managerInfoDao(smngid);//로그인한 아이디의 모든 정보를 dto로 반환
-		
-		model.addAttribute("managerDto", managerDto);
-		
-		return "manager/mngDelete";
-	}
-	
-	@RequestMapping(value="/manager/mngDeleteOk")
-	public String mngDeleteOk(HttpServletRequest request, Model model) {
-		String mngid = request.getParameter("mngid");
-		String mngpw = request.getParameter("mngpw");
-		
-		
-		ManagerDao dao = sqlSession.getMapper(ManagerDao.class);
-		
-		dao.managerDeleteDao(mngid, mngpw);
-		
-		HttpSession session = request.getSession();
-		
-		session.invalidate();
-		
-		
-		return "manager/mngDeleteOk";
-	}
 	
 	@RequestMapping(value="/manager/mngBoard_write", method=RequestMethod.POST)
 	public String mngBoard_write(HttpServletRequest request, Model model) {
@@ -829,7 +803,6 @@ public class BookController {
 	
 	@RequestMapping(value = "/manager/mngBoard_view")
 	public String board_view(HttpServletRequest request, Model model) {
-		
 		String bmnum = request.getParameter("bmnum");
 		int bmnumint = Integer.parseInt(bmnum);
 		
@@ -837,18 +810,15 @@ public class BookController {
 		
 		BoardDto boardDto = dao.contentViewDao(bmnum);
 		
-		model.addAttribute("bmView", boardDto);
+		dao.boardHitDao(bmnum);
 		
-		String bmid = boardDto.getBmid();
-		
-		model.addAttribute("boardID", bmid);
-
 		model.addAttribute("bmView", boardDto);
 		model.addAttribute("rblist", dao.rblistDao(bmnumint));//댓글리스트 가져와서 반환하기
 		
 		
 		return "manager/mngBoard_view";
 	}
+	
 	@RequestMapping(value="/manager/mngBoard_reply")
 	public String mngBoard_reply(HttpServletRequest request, Model model) {
 		
@@ -857,13 +827,13 @@ public class BookController {
 		int bnum = Integer.parseInt(bmnum);
 		
 		HttpSession session = request.getSession();
-		String smemid = (String)session.getAttribute("smemid");
+		String smngid = (String)session.getAttribute("smngid");
 		String rbid = null;
 		
-		if(smemid == null) {
-			rbid = "GUEST";	
+		if(smngid == null) {
+			rbid = "Guest";	
 		}else {
-			rbid = smemid;
+			rbid = smngid;
 		}
 		
 		BoardDao bdao = sqlSession.getMapper(BoardDao.class);
@@ -872,17 +842,19 @@ public class BookController {
 		
 		model.addAttribute("bmView", bdao.contentViewDao(bmnum));
 		model.addAttribute("rblist", bdao.rblistDao(bnum));
-		model.addAttribute("boardID", bdao.contentViewDao(bmnum).getBmid());
+		
 		
 		return "manager/mngBoard_view";
 	}
+	
 	@RequestMapping(value="/manager/mngRpy_delete")
 	public String mngRpy_delete(HttpServletRequest request, Model model) {
+
 		String rbnum = request.getParameter("rbnum");
-		int rbnumint = Integer.parseInt(rbnum);
+		
 		BoardDao dao = sqlSession.getMapper(BoardDao.class);
 
-		dao.replyDeleteDao(rbnumint);
+		dao.replyDeleteDao(rbnum);
 		
 		return "manager/mngBoard_view";
 	}
@@ -913,8 +885,6 @@ public class BookController {
 		
 		return "redirect:mngBoard_list";
 	}
-	
-	
 	
 	@RequestMapping(value="/manager/book_registerOk", method=RequestMethod.POST)
 	public String book_registerOK(HttpServletRequest request, Model model, @RequestPart MultipartFile uploadFiles) throws Exception, Exception {
@@ -981,6 +951,7 @@ public class BookController {
 		
 		return "manager/book_registerOk";
 	}
+	
 	@RequestMapping(value="/manager/mngBook_list")
 	public String mngBook_list(HttpServletRequest request, Model model) {
 		String searchKeyword = request.getParameter("searchKeyword");
@@ -1008,6 +979,7 @@ public class BookController {
 		
 		return "manager/mngBook_list";
 	}
+	
 	@RequestMapping(value = "/manager/mngBook_view")
 	public String mngBook_view(HttpServletRequest request, Model model) {
 		
@@ -1023,6 +995,7 @@ public class BookController {
 		
 		return "manager/mngBook_view";
 	}
+	
 	@RequestMapping(value="/manager/mngBook_delete")
 	public String mngBook_delete(HttpServletRequest request, Model model) {
 		
@@ -1034,6 +1007,7 @@ public class BookController {
 		
 		return "redirect:mngBook_list";
 	}
+	
 	@RequestMapping(value = "/manager/mngBook_modify")
 	public String  mngBook_modify(HttpServletRequest request, Model model) {
 		

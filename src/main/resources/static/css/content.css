@@ -29,6 +29,17 @@ input.input_box{
 	font-size: 16px;
 	color: #000000;
 }
+input.input_post{
+	
+	border: 3px solid #4375DB;
+	background-color: #ffffff;
+	width: 455px;
+	padding:5px;
+	margin:10px;
+	font-family: Arial;
+	font-size: 16px;
+	color: #000000;
+}
 input.input_title{
 	
 	border: 3px solid #4375DB;
@@ -270,4 +281,36 @@ td.board_form{
 	background-color: #c7daf8;
 	border: 5px solid #4044ee;
 	border-radius: 12px;
+}
+input.btn_post{
+	border: 2px solid #10459e;
+	background-color: #1a64d5;
+	width: 150px;
+	padding:5px;
+	font-family: Arial;
+	font-size: 12px;
+	color: #ffffff;
+}
+a.h_log:hover {
+	text-decoration: none;
+	color:#000097;
+}
+select.select{
+	border: 2px solid #10459e;
+	background-color: #ffffff;
+	width: 100px;
+	padding:5px;
+	font-family: Arial;
+	font-size: 12px;
+	color: #000000;
+}
+input.input_tel{
+	border: 3px solid #4375DB;
+	background-color: #ffffff;
+	width: 100px;
+	padding:5px;
+	margin:10px;
+	font-family: Arial;
+	font-size: 16px;
+	color: #000000;
 }

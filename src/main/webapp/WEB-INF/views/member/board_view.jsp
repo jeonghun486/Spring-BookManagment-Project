@@ -55,11 +55,11 @@
 									<td colspan="3" align="right">
 										<% 
 											String smemid = (String) session.getAttribute("smemid");
-											String bmid = request.getAttribute("boardID").toString();
+											String boardID = (String) request.getAttribute("boardID");
 											if (smemid == null){
 												smemid="Guest";
 											}
-											if((smemid != null) && (smemid.equals(bmid)) || (smemid.equals("manage"))){
+											if((smemid != null) && (smemid.equals(boardID))){
 										%>
 										<input class="button" type="button" value="글 수정" onclick="boardCheck()">
 										<input class="button" type="button" value="글 삭제" onclick="location.href='board_delete?bmnum='+${bmView.bmnum}">
@@ -86,9 +86,11 @@
 					           </td>
 					           <td align="right">
 					             댓글 게시일 | ${dto.rbdate}&nbsp;&nbsp;
-										
+					           <c:choose>
+					           	<c:when test="${dto.rbid == srbid }">
 					             <input type="button" name="rpy_delete" value="X" onclick="location.href='rpy_delete?rbnum='+${dto.rbnum }">
-					             
+					           	</c:when>
+					           </c:choose>
 					      </td>
 					        </tr>
 					        <tr>

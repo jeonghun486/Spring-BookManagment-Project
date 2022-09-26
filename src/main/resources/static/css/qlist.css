@@ -20,7 +20,7 @@ td.board_content{
 	font-family: malgun;
 	color: #000000;
 	background-color: #FFE5C2;
-	text-align: left;
+	text-align: center;
 	border-style: solid;
 	border-color: #ffffff;
 	border-width: 1px;
@@ -111,4 +111,22 @@ td.book_rtitle{
 	border-style: solid;
 	border-color: #ffffff;
 	border-width: 1px;
+}
+
+span.book_returnN{
+	font-size: 12px;
+	font-weight: nomal;
+	font-family: malgun;
+	color: #fa053d;
+
+}
+span.book_returnY{
+	font-size: 12px;
+	font-weight: nomal;
+	font-family: malgun;
+	color: #0000ff;
+}
+td.book_return{
+	text-align: center;
+	background-color: #FFE5C2;
 }

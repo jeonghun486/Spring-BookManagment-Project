@@ -5,7 +5,7 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
 <mapper namespace="com.hoon.bookmanagement.dao.BoardDao">
-<insert id="writeDao">
+	<insert id="writeDao">
 		insert into book_board (bmnum, bmid, bmtitle, bmcontent, bmhit) values(bmboard_seq.nextval,#{param1},#{param2},#{param3}, 0)
 	</insert>
 	
@@ -26,6 +26,7 @@
 	</update>
 	
 	<!-- 댓글 -->
+	
 	<insert id="rbwriteDao">
 		insert into book_replyboard(rbnum, boardnum, rbid, rbcontent) values(replyboard_seq.nextval, #{param1},#{param2},#{param3})
 	</insert>
@@ -33,11 +34,18 @@
 	<select id="rblistDao" resultType="com.hoon.bookmanagement.dto.ReplyDto">
 		select * from book_replyboard where boardnum = #{param1} order by rbnum asc
 	</select>
+	
 	<select id="replyViewDao" resultType="com.hoon.bookmanagement.dto.ReplyDto">
 		select * from book_replyboard where rbnum=#{param1}
 	</select>
+	
 	<delete id="replyDeleteDao">
 		delete from book_replyboard where rbnum=#{param1}
 	</delete>
+	
+	<!-- 조회수 -->
+	<update id="boardHitDao">
+		update book_board set bmhit=bmhit+1 where bmnum=#{param1}
+	</update>
 	
 	</mapper>

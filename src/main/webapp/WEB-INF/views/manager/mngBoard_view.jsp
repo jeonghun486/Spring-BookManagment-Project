@@ -68,24 +68,22 @@
 					  <table border="1" cellpading="0" cellspacing="0" width="80%" align="center">
 					     <c:forEach items="${rblist }" var="dto">
 					     	<table class="rpy_box" align="center">
-					     	<input type="hidden" name="rbnum" value="${dto.rbnum }">
-					        <tr>
-					           <td width="20%">
-					             댓글쓴이 | ${dto.rbid }
-					           </td>
-					           <td align="right">
-					             댓글 게시일 | ${dto.rbdate}&nbsp;&nbsp;
-										
-					             <input type="button" name="rpy_delete" value="X" onclick="location.href='mngRpy_delete?rbnum='+${dto.rbnum }">
-					             
-					      </td>
-					        </tr>
-					        <tr>
-					           <td colspan="2">
-					           	<hr color=4044ee>
-					             댓글내용 | ${dto.rbcontent }
-					           </td>
-					        </tr>
+					     		<input type="hidden" name="rbnum" value="${dto.rbnum }">
+					        	<tr>
+							        <td width="20%">
+										댓글쓴이 | ${dto.rbid }
+							        </td>
+							        <td align="right">
+							             댓글 게시일 | ${dto.rbdate}&nbsp;&nbsp;
+							             <input type="button" name="rpy_delete" value="X" onclick="location.href='mngRpy_delete?rbnum='+${dto.rbnum }">		             
+							  		</td>
+					      		</tr>
+					        	<tr>
+									<td colspan="2">
+					           			<hr color=4044ee>
+							             댓글내용 | ${dto.rbcontent }
+							        </td>
+					        	</tr>
 					        </table>
 					     </c:forEach><br><br>
 					     <table align="center">

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/titletext.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/content.css">
-	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/question.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/update.js"></script>
 <title>게시판 글 쓰기</title>
 </head>
 <body>

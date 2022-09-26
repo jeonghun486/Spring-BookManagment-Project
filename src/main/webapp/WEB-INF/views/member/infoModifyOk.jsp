@@ -26,7 +26,7 @@
 						<table border="0" cellspacing="0" cellpadding="10">
 							
 								<tr>
-                      				<td colspan="2"><span class="content_text" >${memberDto.memname }님의 회원정보를 수정하였습니다.</span></td>
+                      				<td colspan="4" align="center"><span class="login_title" ><h2>${memberDto.memname }님의 회원정보를 수정하였습니다.</h2></span></td>
                     			 </tr>
 								<tr>
 									<td><span class="content_text">아이디 : &nbsp;</span></td>
@@ -45,7 +45,13 @@
 									<td><span class="info_text">${memberDto.memname}</span></td>
 								</tr>
 								<tr>
-									<td><span class="content_text">주소 : &nbsp;</span></td>
+									<td><span class="content_text">우편번호 : &nbsp;</span></td>
+									<td><span class="info_text">${memberDto.mempost}</span></td>									
+								</tr>
+									<td><span class="content_text">도로명 주소 : &nbsp;</span></td>
+									<td><span class="info_text">${memberDto.memdoro}</span></td>
+								<tr>
+									<td><span class="content_text">상세주소 : &nbsp;</span></td>
 									<td><span class="info_text">${memberDto.memaddr}</span></td>
 								</tr>
 								<tr>
@@ -54,14 +60,17 @@
 								</tr>
 								<tr>
 									<td><span class="content_text">이메일 : &nbsp;</span></td>
-									<td><span class="info_text">${memberDto.mememail}</span></td>
+									<td><span class="info_text">${memberDto.mememail}@</span><span class="info_text">${memberDto.memdomain}</span></td>
 								</tr>
 								<tr>
 									<td><span class="content_text">가입일자 : &nbsp;</span></td>
 									<td><span class="info_text">${memberDto.memdate}</span></td>
 								</tr>
+								<tr height="30">
+									<td></td>
+								</tr>
 								<tr>
-									<td colspan="2">
+									<td colspan="4" align="center">
 										<input class="btn_rent" type="button" value="정보수정" onclick="location.href='infoModify'">&nbsp;&nbsp;
 										<input class="btn_rent" type="button" value="메인 홈으로" onclick="location.href='index'">
 									</td>

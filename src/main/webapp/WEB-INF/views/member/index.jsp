@@ -22,7 +22,7 @@
 			<table width="60%" cellspacing="0" border="0" cellpadding="10" >
 			
 				<tr>
-					<td width="10%"></td>
+					<td width="5%"></td>
 					<td bgcolor=B2CCFF align="center" >
 						<a href="best_books" target="if_book">
 							<span class="index_skill01">베스트도서</span>
@@ -31,7 +31,7 @@
 					<td rowspan="4" width="50%" align="">
 						<iframe src="${pageContext.request.contextPath }/resources/img/Library.jpg" width="630" height="500" name="if_book" scrolling="no"></iframe>
 					</td>
-					<td width="10%"></td>
+					<td width="5%"></td>
 				</tr>
 				<tr>
 				<td width="10%"></td>
@@ -40,25 +40,25 @@
 							<span class="index_skill01">신간도서</span>
 						</a>
 					</td>
-					<td width="10%"></td>
+					<td width="5%"></td>
 				</tr>
 				<tr>
-				<td width="10%"></td>
+				<td width="5%"></td>
 					<td bgcolor="B2CCFF" align="center">
 						<a href="domestic_books" target="if_book">
 							<span class="index_skill01">국내도서</span>
 						</a>
 					</td>
-					<td width="10%"></td>
+					<td width="5%"></td>
 				</tr>
 				<tr>
-				<td width="10%"></td>
+				<td width="5%"></td>
 					<td bgcolor="B2CCFF" align="center">
 						<a href="foreign_books" target="if_book">
 							<span class="index_skill01">외국도서</span>
 						</a>
 					</td>
-					<td width="10%"></td>
+					<td width="5%"></td>
 				</tr>
 				
 			</table>

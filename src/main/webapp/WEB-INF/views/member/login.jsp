@@ -38,8 +38,8 @@
 								</tr>
 								<tr>
 									<td colspan="3" align="right">
-										<a href="select_sch">아이디/비밀번호 찾기</a> |
-										<a href="join">회원가입</a>
+										<a class="h_log" href="select_sch">아이디/비밀번호 찾기</a> |
+										<a class="h_log" href="join">회원가입</a>
 									</td>
 									
 								</tr>

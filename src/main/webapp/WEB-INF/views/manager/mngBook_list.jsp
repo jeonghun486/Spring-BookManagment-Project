@@ -71,7 +71,7 @@
 								</td>
 								<td class="book_content">${bookDto.publisher }</td>
 								<td class="book_content">${bookDto.pdate }</td>
-								<td class="book_content">${bookDto.price }</td>
+								<td class="book_content">${bookDto.price }원</td>
 								<c:choose>
 								<c:when test="${bookDto.amount=='1'}">
 									<td class="book_content"><input type="button" class="btn_rentY" value="대여" onclick="location.href='#'"></td>

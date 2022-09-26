@@ -29,7 +29,6 @@
 						<c:when test="${rent=='0' }">
 							<span class="content_text">
 								반납이 정상적으로 처리되었습니다.
-								
 							</span>
 						</c:when>
 					</c:choose>

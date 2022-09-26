@@ -8,7 +8,7 @@
 
 	<!-- Member SQL -->
 	<insert id="joinDao">
-		insert into book_member(memid, mempw, memname, memaddr, memtel, mememail) values(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6})
+		insert into book_member(memid, mempw, memname, mempost, memdoro, memaddr, memtel, mememail, memdomain) values(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9})
 	</insert>
 	
 	<select id="checkIdDao" resultType="int">
@@ -24,7 +24,7 @@
 	</select>
 	
 	<update id="infoModifyDao">
-		update book_member set mempw=#{param1}, memname=#{param2}, memaddr=#{param3}, memtel=#{param4},mememail=#{param5} where memid=#{param6}
+		update book_member set mempw=#{param1}, memname=#{param2}, mempost=#{param3}, memdoro=#{param4}, memaddr=#{param5}, memtel=#{param6}, mememail=#{param7}, memdomain=#{param8} where memid=#{param9}
 	</update>
 	
 	<delete id="memberDeleteDao">

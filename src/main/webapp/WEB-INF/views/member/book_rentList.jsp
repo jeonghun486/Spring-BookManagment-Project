@@ -27,8 +27,12 @@
 			<table width="90%" cellspacing="0" border="0" cellpadding="10">
 				<tr height="534">
 					<td bgcolor="C7D3ED" align="center">
-						<span class="content_text">※도서대여목록</span>
 						<table width="90%" border="0" cellspacing="0" cellpadding="10">
+							<tr >
+								<td align="center" colspan="10" height="100">
+									<span class="content_text">※도서대여목록</span>
+								</td>
+							</tr>
 							<tr>
 								<td class="book_title" width="12%">ISBN</td>
 								<td class="book_title" width="20%">제목</td>
@@ -38,10 +42,11 @@
 								<td class="book_title" width="7%">반납기일</td>
 								<td class="book_title" width="7%">반납일</td>
 								<td class="book_title" width="6%">가격</td>
-								<td class="book_title" width="8%">연체여부</td>
-								<td class="book_title" width="8%">반납여부</td>
+								<td class="book_title" width="8%">반납·연체여부</td>
 							</tr>
 							<c:forEach items="${rentList }" var="rentDto">
+							<c:choose>
+							<c:when test="${rentDto.rent==1}">
 							<tr>
 								<td class="book_content">${rentDto.risbn }</td>
 								<td class="book_view" >
@@ -62,7 +67,9 @@
 								<td class="book_content"><sapn id="rdate">${rentDto.rtrndate }</sapn></td>
 								<c:choose>
 									<c:when test="${rentDto.rent=='0'}">
-										<td class="book_content">${rentDto.rdate} </td>
+										<td class="book_content">
+											<c:out value="${fn:substring(rentDto.rdate,0,10)}"></c:out>
+										</td>
 									</c:when>
 									<c:otherwise>
 										<td class="book_content">-</td>
@@ -73,52 +80,42 @@
 									<c:set var="rtrndate" value="${rentDto.rtrndate }"/>
 															
 									<fmt:formatDate var="now" type="date" value="${today}" pattern="yyyy-MM-dd"/>
+									<fmt:parseDate var="now_D"  value="${now }" pattern="yyyy-MM-dd"/>
+									<fmt:parseDate var="rtn_D" value="${rentDto.rtrndate }"  pattern="yyyy-MM-dd"/>
+									 
+									<fmt:parseNumber var="now_N" value="${now_D.time / (1000*60*60*24)}" integerOnly="true" />
+									<fmt:parseNumber var="rtn_N" value="${rtn_D.time / (1000*60*60*24)}" integerOnly="true" />
 								
-								<script type="text/javascript">
-										window.onload = () => {
-										now = new Date();
-										
-										var year = now.getFullYear();	//연도
-										var month = now.getMonth()+1;   // 월    
-										var day = now.getDate();  //일
-										
-										var rent_date = document.getElementById('rdate').innerHTML;
-										//var rent_date = document.getElementsByTagName('td')[29].childNodes[0].nodeValue;
-										var rdate_arr = rent_date.split("-");
-										
-										var rDate = new Date(rdate_arr[0], rdate_arr[1], rdate_arr[2]);
-										var nDate = new Date(year, month, day);
-									
-										
-										var btMs = nDate.getTime() - rDate.getTime() ;
-										var btDay = btMs / (1000*60*60*24) ;
-									
-										document.getElementById('over_Date').innerHTML = btDay;
-										
-										}
-								</script>
-								<td class="book_content">${rentDto.rprice }</td>
+								<td class="book_content">${rentDto.rprice }원</td>
 									
 								<c:choose>
-								<c:when test="${(now > rtrndate && rentDto.rent=='1') || (now > rtrndate && rentDto.rent=='0')}">
-									<td class="book_returnN">
-										<span id="over_Date"></span>일 연체
-									</td>
-								</c:when>
-								<c:otherwise>
-									<td class="book_returnY">미 연체</td>
-								</c:otherwise>
+									<c:when test="${now_N - rtn_N > 0 && rentDto.rent==1}">
+										<td class="book_returnN">
+											미반납/${now_N - rtn_N}일 연체
+										</td>
+									</c:when>
+									<c:when test="${now_N - rtn_N > 0 && rentDto.rent==0}">
+										<td class="book_returnY">
+											반납완료
+										</td>
+									</c:when>
 								</c:choose>
-								
 								<c:choose>
-								<c:when test="${rentDto.rent=='1'}">
-									<td class="book_returnN">미 반납</td>
-								</c:when>
-								<c:otherwise>
-									<td class="book_returnY">반납완료</td>
-								</c:otherwise>
+									<c:when test="${now_N - rtn_N <= 0 && rentDto.rent==1}">
+										<td class="book_return">
+											<span class="book_returnN">미반납</span>/
+											<span class="book_returnY">미연체</span>
+										</td>
+									</c:when>
+									<c:when test="${now_N - rtn_N <= 0 && rentDto.rent==0}">
+										<td class="book_returnY">
+											반납완료
+										</td>
+									</c:when>
 								</c:choose>
 							</tr>
+							</c:when>
+							</c:choose>
 							</c:forEach>
 							<tr height="50"></tr>
 							<tr>
